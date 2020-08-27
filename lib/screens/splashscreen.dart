@@ -28,7 +28,7 @@ class _SplashscreenState extends State<Splashscreen> {
           loaderColor: Colors.white54,
           navigateAfterSeconds: new Loginscreen(),
         ),
-        VariousDiscs(10),
+        VariousDiscs(10, Colors.white30),
       ],
     );
   }

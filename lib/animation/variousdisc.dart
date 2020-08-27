@@ -5,11 +5,10 @@ class DiscData {
   static final _rng = Random();
 
   double size;
-  Color color;
+
   Alignment alignment;
 
   DiscData() {
-    color = Colors.white30;
     size = _rng.nextDouble() * 40 + 15;
     alignment = Alignment(
       _rng.nextDouble() * 2 - 1,
@@ -20,8 +19,9 @@ class DiscData {
 
 class VariousDiscs extends StatefulWidget {
   final numberOfDiscs;
+  final color;
 
-  VariousDiscs(this.numberOfDiscs);
+  VariousDiscs(this.numberOfDiscs, this.color);
 
   @override
   _VariousDiscsState createState() => _VariousDiscsState();
@@ -60,13 +60,13 @@ class _VariousDiscsState extends State<VariousDiscs> {
           for (final disc in _discs)
             Positioned.fill(
               child: AnimatedAlign(
-                duration: Duration(milliseconds: 500),
+                duration: Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
                 alignment: disc.alignment,
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 300),
                   decoration: BoxDecoration(
-                    color: disc.color,
+                    color: widget.color,
                     shape: BoxShape.circle,
                   ),
                   height: disc.size,
