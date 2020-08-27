@@ -3,30 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_app/widgets/inputbox.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/screens/signupscreen.dart';
+
 import 'package:todo_app/animation/variousdisc.dart';
 import 'package:todo_app/animation/fadeanimation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Loginscreen extends StatelessWidget {
+class Signupscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loginbody(),
+      body: signupbody(),
       backgroundColor: Colors.deepPurple[200],
     );
   }
 }
 
 // ignore: camel_case_types
-class loginbody extends StatefulWidget {
+class signupbody extends StatefulWidget {
   @override
-  _loginbodyState createState() => _loginbodyState();
+  _signupbodyState createState() => _signupbodyState();
 }
 
 // ignore: camel_case_types
-class _loginbodyState extends State<loginbody> {
-  // IconData icon = FontAwesomeIcons.eyeSlash;
+class _signupbodyState extends State<signupbody> {
   bool value = true;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _loginbodyState extends State<loginbody> {
               FadeAnimation(
                 0.2,
                 Text(
-                  'Login',
+                  'SignUp',
                   style: GoogleFonts.indieFlower(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -55,6 +54,18 @@ class _loginbodyState extends State<loginbody> {
               //email inputbox
               FadeAnimation(
                 0.4,
+                Inputbox(
+                  hintText: 'Name',
+                  hintStyle: GoogleFonts.indieFlower(),
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white54,
+                  ),
+                  boxColor: Colors.white24,
+                ),
+              ),
+              FadeAnimation(
+                0.6,
                 Inputbox(
                   hintText: 'Email',
                   hintStyle: GoogleFonts.indieFlower(),
@@ -67,7 +78,7 @@ class _loginbodyState extends State<loginbody> {
               ),
               //password inputbox
               FadeAnimation(
-                0.6,
+                0.8,
                 Inputbox(
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
@@ -92,22 +103,37 @@ class _loginbodyState extends State<loginbody> {
                   boxColor: Colors.white24,
                 ),
               ),
-              //forgot pass flatbutton
               FadeAnimation(
-                0.8,
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text('Forgot Password',
-                        style: GoogleFonts.indieFlower()),
-                    textColor: Colors.black54,
+                1,
+                Inputbox(
+                  hintText: 'Confirm Password',
+                  hintStyle: GoogleFonts.indieFlower(),
+                  obscure: value,
+                  icon: Icon(Icons.lock_outline, color: Colors.white54),
+                  suffixIcon: GestureDetector(
+                    child: value == true
+                        ? Icon(FontAwesomeIcons.eyeSlash,
+                            size: 18, color: Colors.white54)
+                        : Icon(FontAwesomeIcons.eye,
+                            size: 18, color: Colors.red[300]),
+                    onTap: () {
+                      setState(() {
+                        if (value == true) {
+                          value = false;
+                        } else {
+                          value = true;
+                        }
+                      });
+                    },
                   ),
+                  boxColor: Colors.white24,
                 ),
               ),
+              //forgot pass flatbutton
+
               //circularavtar iconbutton
               FadeAnimation(
-                1.0,
+                1.2,
                 CircleAvatar(
                   backgroundColor: Colors.white24,
                   radius: 28,
@@ -120,16 +146,16 @@ class _loginbodyState extends State<loginbody> {
               ),
               SizedBox(height: 20),
               //signup button
-              FadeAnimation(
-                1.4,
-                GestureDetector(
-                  child: Text('Signup',
-                      style: GoogleFonts.indieFlower(fontSize: 20)),
-                  onTap: () {
-                    Get.to(Signupscreen());
-                  },
-                ),
-              ),
+              // FadeAnimation(
+              //   1.4,
+              //   GestureDetector(
+              //     child: Text('Signup',
+              //         style: GoogleFonts.indieFlower(fontSize: 20)),
+              //     onTap: () {
+              //       Get.to(Signupscreen());
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ],

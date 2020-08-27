@@ -20,9 +20,9 @@ class _SplashscreenState extends State<Splashscreen> {
           title: Text(
             'TODO',
             style: GoogleFonts.indieFlower(
-              fontSize: 30,
+              fontSize: 40,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              // color: Colors.wh,
             ),
           ),
           loaderColor: Colors.white54,
