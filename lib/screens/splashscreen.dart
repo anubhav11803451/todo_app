@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:todo_app/animation/variousdisc.dart';
 import 'package:todo_app/screens/loginscreen.dart';
+import 'package:todo_app/utils/root.dart';
 
 class Splashscreen extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
           ),
           loaderColor: Colors.white54,
-          navigateAfterSeconds: new Loginscreen(),
+          navigateAfterSeconds: new Root(),
         ),
         VariousDiscs(10, Colors.white30),
       ],

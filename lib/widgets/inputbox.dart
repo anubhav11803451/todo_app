@@ -8,6 +8,7 @@ class Inputbox extends StatelessWidget {
   final Icon icon;
   final Widget suffixIcon;
   final bool obscure;
+  final TextEditingController controller;
   const Inputbox({
     Key key,
     this.height,
@@ -18,6 +19,7 @@ class Inputbox extends StatelessWidget {
     this.icon,
     this.obscure = false,
     this.suffixIcon,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,8 @@ class Inputbox extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.symmetric(horizontal: 20),
       alignment: Alignment.center,
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
         obscureText: obscure,
         cursorColor: Colors.white38,
         decoration: InputDecoration(

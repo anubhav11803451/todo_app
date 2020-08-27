@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/widgets/inputbox.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:todo_app/animation/variousdisc.dart';
 import 'package:todo_app/animation/fadeanimation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,21 +12,26 @@ class Signupscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: signupbody(),
+      body: Signupbody(),
       backgroundColor: Colors.deepPurple[200],
     );
   }
 }
 
-// ignore: camel_case_types
-class signupbody extends StatefulWidget {
+class Signupbody extends StatefulWidget {
   @override
-  _signupbodyState createState() => _signupbodyState();
+  _SignupbodyState createState() => _SignupbodyState();
 }
 
-// ignore: camel_case_types
-class _signupbodyState extends State<signupbody> {
+class _SignupbodyState extends State<Signupbody> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmpasswordController = TextEditingController();
+  TextEditingController _name = TextEditingController();
+
+  final AuthController _authController = Get.put(AuthController());
   bool value = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -55,6 +60,7 @@ class _signupbodyState extends State<signupbody> {
               FadeAnimation(
                 0.4,
                 Inputbox(
+                  controller: _name,
                   hintText: 'Name',
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
@@ -67,6 +73,7 @@ class _signupbodyState extends State<signupbody> {
               FadeAnimation(
                 0.6,
                 Inputbox(
+                  controller: _emailController,
                   hintText: 'Email',
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
@@ -80,6 +87,7 @@ class _signupbodyState extends State<signupbody> {
               FadeAnimation(
                 0.8,
                 Inputbox(
+                  controller: _passwordController,
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
@@ -106,26 +114,16 @@ class _signupbodyState extends State<signupbody> {
               FadeAnimation(
                 1,
                 Inputbox(
+                  controller: _confirmpasswordController,
                   hintText: 'Confirm Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
                   icon: Icon(Icons.lock_outline, color: Colors.white54),
-                  suffixIcon: GestureDetector(
-                    child: value == true
-                        ? Icon(FontAwesomeIcons.eyeSlash,
-                            size: 18, color: Colors.white54)
-                        : Icon(FontAwesomeIcons.eye,
-                            size: 18, color: Colors.red[300]),
-                    onTap: () {
-                      setState(() {
-                        if (value == true) {
-                          value = false;
-                        } else {
-                          value = true;
-                        }
-                      });
-                    },
-                  ),
+                  suffixIcon: value == true
+                      ? Icon(FontAwesomeIcons.eyeSlash,
+                          size: 18, color: Colors.white54)
+                      : Icon(FontAwesomeIcons.eye,
+                          size: 18, color: Colors.red[300]),
                   boxColor: Colors.white24,
                 ),
               ),
@@ -140,7 +138,24 @@ class _signupbodyState extends State<signupbody> {
                   child: IconButton(
                     icon:
                         Icon(FontAwesomeIcons.arrowRight, color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_passwordController.text ==
+                          _confirmpasswordController.text) {
+                        _authController.createUser(
+                          _emailController.text,
+                          _passwordController.text,
+                          _name.text,
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Password doesn't match",
+                          'Check the password again',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.white38,
+                          overlayBlur: 1,
+                        );
+                      }
+                    },
                   ),
                 ),
               ),

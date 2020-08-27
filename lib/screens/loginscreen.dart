@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:todo_app/widgets/inputbox.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_app/controllers/authcontroller.dart';
+import 'package:todo_app/widgets/inputbox.dart';
 import 'package:todo_app/screens/signupscreen.dart';
 import 'package:todo_app/animation/variousdisc.dart';
 import 'package:todo_app/animation/fadeanimation.dart';
@@ -12,22 +13,26 @@ class Loginscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loginbody(),
+      body: Loginbody(),
       backgroundColor: Colors.deepPurple[200],
     );
   }
 }
 
-// ignore: camel_case_types
-class loginbody extends StatefulWidget {
+class Loginbody extends StatefulWidget {
+  // IconData icon = FontAwesomeIcons.eyeSlash;
+  // AuthController _authController = Get.put(AuthController());
   @override
-  _loginbodyState createState() => _loginbodyState();
+  _LoginbodyState createState() => _LoginbodyState();
 }
 
-// ignore: camel_case_types
-class _loginbodyState extends State<loginbody> {
-  // IconData icon = FontAwesomeIcons.eyeSlash;
+class _LoginbodyState extends State<Loginbody> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  final AuthController _authController = Get.put(AuthController());
   bool value = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,6 +61,7 @@ class _loginbodyState extends State<loginbody> {
               FadeAnimation(
                 0.4,
                 Inputbox(
+                  controller: _emailController,
                   hintText: 'Email',
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
@@ -69,6 +75,7 @@ class _loginbodyState extends State<loginbody> {
               FadeAnimation(
                 0.6,
                 Inputbox(
+                  controller: _passwordController,
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
@@ -114,7 +121,12 @@ class _loginbodyState extends State<loginbody> {
                   child: IconButton(
                     icon:
                         Icon(FontAwesomeIcons.arrowRight, color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      _authController.login(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -126,7 +138,11 @@ class _loginbodyState extends State<loginbody> {
                   child: Text('Signup',
                       style: GoogleFonts.indieFlower(fontSize: 20)),
                   onTap: () {
-                    Get.to(Signupscreen());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Signupscreen(),
+                        ));
                   },
                 ),
               ),
