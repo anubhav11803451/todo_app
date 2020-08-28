@@ -138,11 +138,7 @@ class _LoginbodyState extends State<Loginbody> {
                   child: Text('Signup',
                       style: GoogleFonts.indieFlower(fontSize: 20)),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Signupscreen(),
-                        ));
+                    Get.to(Signupscreen());
                   },
                 ),
               ),
