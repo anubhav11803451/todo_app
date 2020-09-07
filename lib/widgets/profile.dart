@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/controllers/usercontroller.dart';
 import 'package:todo_app/services/database.dart';
@@ -25,11 +29,11 @@ Widget profile(BuildContext context) {
             children: [
               // Icon(FontAwesomeIcons.userAlt, size: 50),
               Text(
-                'Hey !\n${_.user.name}',
-                style: GoogleFonts.imprima(
+                'Hey !\n${_.user.name}\nit\'s\n${DateFormat.yMMMEd('en_US').format(DateTime.now())}',
+                style: GoogleFonts.montserratAlternates(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white70,
+                  color: Colors.white,
                 ),
               ),
               FlatButton(
@@ -39,8 +43,8 @@ Widget profile(BuildContext context) {
                 child: Text(
                   'Sign out',
                   style: GoogleFonts.indieFlower(
-                    color: Colors.deepPurple[200],
-                    fontSize: 18,
+                    color: Colors.white70,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

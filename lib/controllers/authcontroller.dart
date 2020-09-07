@@ -35,7 +35,7 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        "Error while signing Up",
+        "Error while sign Up",
         e.message,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.white38,

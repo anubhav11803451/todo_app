@@ -18,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
           seconds: 3,
           backgroundColor: Colors.deepPurple[100],
           title: Text(
-            'TODO',
+            '',
             style: GoogleFonts.indieFlower(
               fontSize: 40,
               fontWeight: FontWeight.bold,

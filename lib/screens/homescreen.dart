@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
@@ -15,7 +17,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final AuthController _authController = Get.put(AuthController());
   final TextEditingController _notesController = TextEditingController();
-  int selectedIndex = 1;
+  int selectedIndex = 0;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
     Icon(FontAwesomeIcons.tasks),
@@ -31,8 +33,6 @@ class _HomescreenState extends State<Homescreen> {
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
-          bottomRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
         ),
         color: Colors.white,
         boxShadow: [
@@ -87,6 +87,7 @@ class _HomescreenState extends State<Homescreen> {
         if (_notesController.text != '') {
           Database().addTodos(_notesController.text, _authController.user.uid);
           _notesController.clear();
+          FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
           });
@@ -106,7 +107,10 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       bottomNavigationBar: bottomAppBar(context),
       floatingActionButton: flotingButton(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation:
+          (MediaQuery.of(context).viewInsets.bottom == 0)
+              ? FloatingActionButtonLocation.centerDocked
+              : FloatingActionButtonLocation.endFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       backgroundColor: Colors.deepPurple[100],
       body: AnimatedSwitcher(

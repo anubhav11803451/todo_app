@@ -10,9 +10,8 @@ Widget home(BuildContext context) {
     key: UniqueKey(),
     height: size.height,
     width: size.width,
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    padding: EdgeInsets.only(left: 10, right: 10, top: 30),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GetX<NotesController>(
           init: Get.put<NotesController>(NotesController()),
@@ -23,6 +22,7 @@ Widget home(BuildContext context) {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
+                  padding: EdgeInsets.only(top: 20),
                   itemCount: notesController.notes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return NotesCard(
@@ -43,7 +43,11 @@ Widget home(BuildContext context) {
                 ),
               );
             } else {
-              return Text('Loading..');
+              return Text(
+                'Nothing To Show\nAdd your first note',
+                style:
+                    GoogleFonts.indieFlower(color: Colors.black, fontSize: 18),
+              );
             }
           },
         ),
@@ -68,8 +72,15 @@ class NotesCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.deepPurple[200],
+            blurRadius: 20,
+            spreadRadius: -5,
+          ),
+        ],
       ),
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GridTile(
         child: Text(content, style: GoogleFonts.montserratAlternates()),

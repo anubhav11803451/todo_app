@@ -25,6 +25,10 @@ class AddNotes extends StatelessWidget {
         cursorColor: Colors.deepPurple[200],
         decoration: InputDecoration(
           border: InputBorder.none,
+          hintText: "What's on your beautiful mind?",
+          hintStyle: GoogleFonts.montserrat(
+            fontSize: 15,
+          ),
         ),
         style: GoogleFonts.montserratAlternates(fontSize: 18),
       ),
