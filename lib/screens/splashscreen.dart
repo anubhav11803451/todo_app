@@ -18,11 +18,9 @@ class _SplashscreenState extends State<Splashscreen> {
           seconds: 3,
           backgroundColor: Colors.deepPurple[100],
           title: Text(
-            '',
-            style: GoogleFonts.indieFlower(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+            'Aide\nMemoire',
+            style: GoogleFonts.montserratAlternates(
+                fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           loaderColor: Colors.white54,
           navigateAfterSeconds: Root(),

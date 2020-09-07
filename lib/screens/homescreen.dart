@@ -17,7 +17,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final AuthController _authController = Get.put(AuthController());
   final TextEditingController _notesController = TextEditingController();
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
     Icon(FontAwesomeIcons.tasks),
@@ -120,7 +120,7 @@ class _HomescreenState extends State<Homescreen> {
             : AnimatedSwitcher(
                 duration: Duration(milliseconds: 800),
                 child: selectedIndex == 1
-                    ? profile(context)
+                    ? Profile()
                     : AddNotes(notesController: _notesController),
                 switchOutCurve: Curves.easeInOutCubic,
                 switchInCurve: Curves.fastLinearToSlowEaseIn,
