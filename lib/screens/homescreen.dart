@@ -1,10 +1,11 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/services/database.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
-import 'package:todo_app/controllers/usercontroller.dart';
+import 'package:todo_app/services/database.dart';
+import 'package:todo_app/widgets/addNotes.dart';
+import 'package:todo_app/widgets/profile.dart';
+import 'package:todo_app/widgets/home.dart';
+import 'package:flutter/material.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -12,8 +13,10 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  final AuthController _authController = Get.put(AuthController());
+  final TextEditingController _notesController = TextEditingController();
   int selectedIndex = 1;
-  List<int> index = [0, 1];
+  List<int> index = [0, 1, 2];
   List<Icon> icons = [
     Icon(FontAwesomeIcons.tasks),
     Icon(FontAwesomeIcons.userAlt),
@@ -55,6 +58,7 @@ class _HomescreenState extends State<Homescreen> {
               setState(() {
                 selectedIndex = index[0];
               });
+              _notesController.clear();
             },
           ),
           IconButton(
@@ -66,6 +70,7 @@ class _HomescreenState extends State<Homescreen> {
               setState(() {
                 selectedIndex = index[1];
               });
+              _notesController.clear();
             },
           ),
         ],
@@ -75,11 +80,24 @@ class _HomescreenState extends State<Homescreen> {
 
   Widget flotingButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        setState(() {
+          selectedIndex = index[2];
+        });
+        if (_notesController.text != '') {
+          Database().addTodos(_notesController.text, _authController.user.uid);
+          _notesController.clear();
+          setState(() {
+            selectedIndex = index[0];
+          });
+        }
+      },
       backgroundColor: Colors.deepPurple[100],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      tooltip: 'Add Notes',
-      child: Icon(FontAwesomeIcons.plus),
+      tooltip: selectedIndex == 2 ? 'Add Notes' : 'Create New',
+      child: selectedIndex == 2
+          ? Icon(FontAwesomeIcons.check)
+          : Icon(FontAwesomeIcons.plus),
     );
   }
 
@@ -91,76 +109,32 @@ class _HomescreenState extends State<Homescreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       backgroundColor: Colors.deepPurple[100],
-      body: IndexedStack(
-        index: selectedIndex,
-        key: UniqueKey(),
-        sizing: StackFit.passthrough,
-        children: [
-          home(context),
-          profile(context),
-        ],
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 800),
+        child: selectedIndex == 0
+            ? home(context)
+            : AnimatedSwitcher(
+                duration: Duration(milliseconds: 800),
+                child: selectedIndex == 1
+                    ? profile(context)
+                    : AddNotes(notesController: _notesController),
+                switchOutCurve: Curves.easeInOutCubic,
+                switchInCurve: Curves.fastLinearToSlowEaseIn,
+                transitionBuilder:
+                    (Widget child, Animation<double> animation) =>
+                        ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+              ),
+        switchOutCurve: Curves.easeInOutCubic,
+        switchInCurve: Curves.fastLinearToSlowEaseIn,
+        transitionBuilder: (Widget child, Animation<double> animation) =>
+            ScaleTransition(
+          scale: animation,
+          child: child,
+        ),
       ),
     );
   }
-}
-
-Widget home(BuildContext context) {
-  Size size = MediaQuery.of(context).size;
-  return Container(
-    height: size.height,
-    width: size.width,
-  );
-}
-
-Widget profile(BuildContext context) {
-  final AuthController _authController = Get.put(AuthController());
-  Size size = MediaQuery.of(context).size;
-  return Container(
-    height: size.height,
-    width: size.width,
-    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-    child: GetX<UserController>(
-      initState: (_) async {
-        Get.find<UserController>().user =
-            await Database().getUser(Get.find<AuthController>().user.uid);
-      },
-      builder: (_) {
-        if (_.user.name != null) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Icon(FontAwesomeIcons.userAlt, size: 50),
-              Text(
-                'Hey !\n${_.user.name}',
-                style: GoogleFonts.imprima(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white70,
-                ),
-              ),
-              FlatButton(
-                onPressed: () {
-                  _authController.signOut();
-                },
-                child: Text(
-                  'Sign out',
-                  style: GoogleFonts.indieFlower(
-                    color: Colors.deepPurple[200],
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-            ),
-          );
-        }
-      },
-    ),
-  );
 }

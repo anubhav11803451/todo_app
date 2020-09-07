@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/usercontroller.dart';
-import 'package:todo_app/models/user.dart';
+import 'package:todo_app/models/usermodel.dart';
 import 'package:todo_app/services/database.dart';
 
 class AuthController extends GetxController {

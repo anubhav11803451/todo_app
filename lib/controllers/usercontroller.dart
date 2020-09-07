@@ -1,5 +1,5 @@
 import 'package:get/state_manager.dart';
-import 'package:todo_app/models/user.dart';
+import 'package:todo_app/models/usermodel.dart';
 
 class UserController extends GetxController {
   Rx<UserModel> _userModel = UserModel().obs;

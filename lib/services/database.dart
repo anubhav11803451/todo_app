@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todo_app/models/user.dart';
+import 'package:todo_app/models/notesmodel.dart';
+import 'package:todo_app/models/usermodel.dart';
 
 class Database {
   final Firestore _firestore = Firestore.instance;
@@ -27,5 +28,35 @@ class Database {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> addTodos(String content, String uid) async {
+    try {
+      await _firestore
+          .collection('users')
+          .document(uid)
+          .collection('notes')
+          .add({
+        'dateCreated': Timestamp.now(),
+        'content': content,
+        'done': false,
+      });
+    } catch (e) {}
+  }
+
+  Stream<List<NotesModel>> todoStream(String uid) {
+    return _firestore
+        .collection('users')
+        .document(uid)
+        .collection('notes')
+        .orderBy('dateCreated', descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) {
+      List<NotesModel> retVal = List();
+      querySnapshot.documents.forEach((docSnapshot) {
+        retVal.add(NotesModel.fromDocumentSnapshot(docSnapshot));
+      });
+      return retVal;
+    });
   }
 }

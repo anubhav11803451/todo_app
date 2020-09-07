@@ -32,6 +32,7 @@ dependencies:
   google_fonts: ^1.1.0
   font_awesome_flutter: ^8.8.1
   get: ^3.5.1
+  intl: ^0.16.1
   cloud_firestore: ^0.13.6
   firebase_auth: ^0.16.1
   # firebase_core: ^0.4.5
