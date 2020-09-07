@@ -16,7 +16,7 @@ class _SplashscreenState extends State<Splashscreen> {
       children: [
         SplashScreen(
           seconds: 3,
-          backgroundColor: Colors.deepPurple[200],
+          backgroundColor: Colors.deepPurple[100],
           title: Text(
             'TODO',
             style: GoogleFonts.indieFlower(

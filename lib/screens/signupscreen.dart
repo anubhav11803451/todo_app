@@ -13,7 +13,7 @@ class Signupscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Signupbody(),
-      backgroundColor: Colors.deepPurple[200],
+      backgroundColor: Colors.deepPurple[100],
     );
   }
 }
@@ -34,7 +34,7 @@ class _SignupbodyState extends State<Signupbody> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.fromLTRB(20, 40, 20, 40),
       alignment: Alignment.center,
@@ -65,7 +65,7 @@ class _SignupbodyState extends State<Signupbody> {
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
                     Icons.person,
-                    color: Colors.white54,
+                    color: Colors.black26,
                   ),
                   boxColor: Colors.white24,
                 ),
@@ -78,7 +78,7 @@ class _SignupbodyState extends State<Signupbody> {
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
                     Icons.alternate_email,
-                    color: Colors.white54,
+                    color: Colors.black26,
                   ),
                   boxColor: Colors.white24,
                 ),
@@ -91,11 +91,11 @@ class _SignupbodyState extends State<Signupbody> {
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
-                  icon: Icon(Icons.lock_outline, color: Colors.white54),
+                  icon: Icon(Icons.lock_outline, color: Colors.black26),
                   suffixIcon: GestureDetector(
                     child: value == true
                         ? Icon(FontAwesomeIcons.eyeSlash,
-                            size: 18, color: Colors.white54)
+                            size: 18, color: Colors.black26)
                         : Icon(FontAwesomeIcons.eye,
                             size: 18, color: Colors.red[300]),
                     onTap: () {
@@ -118,17 +118,17 @@ class _SignupbodyState extends State<Signupbody> {
                   hintText: 'Confirm Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
-                  icon: Icon(Icons.lock_outline, color: Colors.white54),
+                  icon: Icon(Icons.lock_outline, color: Colors.black26),
                   suffixIcon: value == true
                       ? Icon(FontAwesomeIcons.eyeSlash,
-                          size: 18, color: Colors.white54)
+                          size: 18, color: Colors.black26)
                       : Icon(FontAwesomeIcons.eye,
                           size: 18, color: Colors.red[300]),
                   boxColor: Colors.white24,
                 ),
               ),
-              //forgot pass flatbutton
 
+              SizedBox(height: 20),
               //circularavtar iconbutton
               FadeAnimation(
                 1.2,
@@ -159,7 +159,7 @@ class _SignupbodyState extends State<Signupbody> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+
               //signup button
               // FadeAnimation(
               //   1.4,

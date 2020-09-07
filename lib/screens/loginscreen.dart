@@ -14,7 +14,7 @@ class Loginscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Loginbody(),
-      backgroundColor: Colors.deepPurple[200],
+      backgroundColor: Colors.deepPurple[100],
     );
   }
 }
@@ -35,7 +35,7 @@ class _LoginbodyState extends State<Loginbody> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.fromLTRB(20, 40, 20, 40),
       alignment: Alignment.center,
@@ -66,7 +66,7 @@ class _LoginbodyState extends State<Loginbody> {
                   hintStyle: GoogleFonts.indieFlower(),
                   icon: Icon(
                     Icons.alternate_email,
-                    color: Colors.white54,
+                    color: Colors.black26,
                   ),
                   boxColor: Colors.white24,
                 ),
@@ -79,11 +79,11 @@ class _LoginbodyState extends State<Loginbody> {
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
-                  icon: Icon(Icons.lock_outline, color: Colors.white54),
+                  icon: Icon(Icons.lock_outline, color: Colors.black26),
                   suffixIcon: GestureDetector(
                     child: value == true
                         ? Icon(FontAwesomeIcons.eyeSlash,
-                            size: 18, color: Colors.white54)
+                            size: 18, color: Colors.black26)
                         : Icon(FontAwesomeIcons.eye,
                             size: 18, color: Colors.red[300]),
                     onTap: () {
@@ -107,7 +107,8 @@ class _LoginbodyState extends State<Loginbody> {
                   child: FlatButton(
                     onPressed: () {},
                     child: Text('Forgot Password',
-                        style: GoogleFonts.indieFlower()),
+                        style: GoogleFonts.indieFlower(
+                            fontWeight: FontWeight.bold)),
                     textColor: Colors.black54,
                   ),
                 ),
@@ -136,7 +137,8 @@ class _LoginbodyState extends State<Loginbody> {
                 1.4,
                 GestureDetector(
                   child: Text('Signup',
-                      style: GoogleFonts.indieFlower(fontSize: 20)),
+                      style: GoogleFonts.indieFlower(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
                   onTap: () {
                     Get.to(Signupscreen());
                   },
