@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_app/models/notesmodel.dart';
 import 'package:todo_app/models/usermodel.dart';
+import 'package:get/get.dart';
 
 class Database {
   final Firestore _firestore = Firestore.instance;
@@ -41,7 +42,10 @@ class Database {
         'content': content,
         'done': false,
       });
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 
   Stream<List<NotesModel>> todoStream(String uid) {
@@ -72,7 +76,9 @@ class Database {
         'content': newContent,
         'modifiedDate': Timestamp.now(),
       });
+      Get.back();
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -85,6 +91,7 @@ class Database {
           .collection('notes')
           .document(noteId)
           .delete();
+      Get.back();
     } catch (e) {
       rethrow;
     }

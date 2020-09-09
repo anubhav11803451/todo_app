@@ -21,22 +21,28 @@ class _EditNotesState extends State<EditNotes> {
   Widget flotingButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        if (widget.initalValue != '') {
+        if (Get.context.mediaQueryViewInsets.bottom != 0) {
           Database().updateNotes(widget.initalValue, _authController.user.uid,
               widget.notesModel.notesId);
-          Get.back();
+          Get.snackbar('Notes Updated', 'Your notes are modified.',
+              icon: Icon(FontAwesomeIcons.pen),
+              snackPosition: SnackPosition.BOTTOM);
         } else {
           Database()
               .delete(widget.notesModel.notesId, _authController.user.uid);
-          Get.back();
+
+          Get.snackbar('Note Deleted', 'Your notes are important.',
+              icon: Icon(FontAwesomeIcons.pen),
+              snackPosition: SnackPosition.BOTTOM);
         }
       },
       backgroundColor: Colors.deepPurple[100],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      tooltip: widget.initalValue == '' ? 'Delete' : 'Update',
-      child: widget.initalValue == ''
-          ? Icon(FontAwesomeIcons.trash)
-          : Icon(FontAwesomeIcons.check),
+      tooltip:
+          (Get.context.mediaQueryViewInsets.bottom != 0) ? 'Update' : 'Delete',
+      child: (Get.context.mediaQueryViewInsets.bottom != 0)
+          ? Icon(FontAwesomeIcons.check)
+          : Icon(FontAwesomeIcons.trash),
     );
   }
 

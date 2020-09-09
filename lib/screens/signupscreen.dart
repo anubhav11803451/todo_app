@@ -139,6 +139,7 @@ class _SignupbodyState extends State<Signupbody> {
                     icon:
                         Icon(FontAwesomeIcons.arrowRight, color: Colors.white),
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       if (_passwordController.text ==
                           _confirmpasswordController.text) {
                         _authController.createUser(
@@ -149,7 +150,7 @@ class _SignupbodyState extends State<Signupbody> {
                       } else {
                         Get.snackbar(
                           "Password doesn't match",
-                          'Check the password again',
+                          'Check your password again',
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: Colors.white38,
                           overlayBlur: 1,

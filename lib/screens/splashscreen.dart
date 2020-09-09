@@ -15,7 +15,7 @@ class _SplashscreenState extends State<Splashscreen> {
     return Stack(
       children: [
         SplashScreen(
-          seconds: 3,
+          seconds: 2,
           backgroundColor: Colors.deepPurple[100],
           title: Text(
             'Aide\nMemoire',

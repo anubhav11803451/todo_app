@@ -90,6 +90,13 @@ class _HomescreenState extends State<Homescreen> {
           setState(() {
             selectedIndex = index[0];
           });
+          Get.snackbar('Note Created', 'You can modify it later.',
+              icon: Icon(FontAwesomeIcons.pen),
+              snackPosition: SnackPosition.BOTTOM);
+        } else if (MediaQuery.of(context).viewInsets.bottom != 0) {
+          Get.snackbar('No Content', 'Write something to create note.',
+              icon: Icon(FontAwesomeIcons.pen),
+              snackPosition: SnackPosition.BOTTOM);
         }
       },
       backgroundColor: Colors.deepPurple[100],

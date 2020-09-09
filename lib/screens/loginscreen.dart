@@ -123,6 +123,7 @@ class _LoginbodyState extends State<Loginbody> {
                     icon:
                         Icon(FontAwesomeIcons.arrowRight, color: Colors.white),
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       _authController.login(
                         _emailController.text,
                         _passwordController.text,

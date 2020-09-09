@@ -27,23 +27,8 @@ Widget home(BuildContext context) {
                   itemCount: notesController.notes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
-                      child: NotesCard(
-                        notesModel: notesController.notes[index],
-                        // content:
-                        // notesController.notes[index].content.length >= 50
-                        //     ? notesController.notes[index].content
-                        //         .substring(0, 40)
-                        //         .capitalizeFirst(
-                        //             notesController.notes[index].content)
-                        //     : notesController.notes[index].content
-                        //         .capitalizeFirst(
-                        //             notesController.notes[index].content),
-                        // date: 'created on : ' +
-                        //     DateFormat.yMMMd('en_US')
-                        //         .format(notesController.notes[index].dateCreated
-                        //             .toDate())
-                        //         .toString(),
-                      ),
+                      child:
+                          NotesCard(notesModel: notesController.notes[index]),
                       onTap: () {
                         Get.to(
                           EditNotes(
@@ -58,9 +43,9 @@ Widget home(BuildContext context) {
               );
             } else {
               return Text(
-                'Nothing To Show\nAdd your first note',
+                'Loading',
                 style:
-                    GoogleFonts.indieFlower(color: Colors.black, fontSize: 18),
+                    GoogleFonts.indieFlower(color: Colors.white, fontSize: 18),
               );
             }
           },
