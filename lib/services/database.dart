@@ -59,4 +59,34 @@ class Database {
       return retVal;
     });
   }
+
+  Future<void> updateNotes(
+      String newContent, String uid, String notesId) async {
+    try {
+      _firestore
+          .collection('users')
+          .document(uid)
+          .collection('notes')
+          .document(notesId)
+          .updateData({
+        'content': newContent,
+        'modifiedDate': Timestamp.now(),
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> delete(String noteId, String uid) async {
+    try {
+      _firestore
+          .collection('users')
+          .document(uid)
+          .collection('notes')
+          .document(noteId)
+          .delete();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

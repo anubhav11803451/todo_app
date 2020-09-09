@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               children: [
                 // Icon(FontAwesomeIcons.userAlt, size: 50),
                 Text(
-                  'Hey !\n${_.user.name}\nit\'s\n${DateFormat.yMMMEd('en_US').format(DateTime.now())}',
+                  'Hey ! ${_.user.name}\nit\'s\n${DateFormat('hh:mm a\nd MMMM yy').format(DateTime.now())}',
                   style: GoogleFonts.montserratAlternates(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

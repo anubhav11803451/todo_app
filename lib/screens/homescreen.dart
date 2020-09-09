@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
@@ -10,6 +8,7 @@ import 'package:todo_app/widgets/home.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatefulWidget {
+  Homescreen({Key key}) : super(key: key);
   @override
   _HomescreenState createState() => _HomescreenState();
 }

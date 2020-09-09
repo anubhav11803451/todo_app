@@ -3,7 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddNotes extends StatelessWidget {
   final TextEditingController notesController;
-  const AddNotes({Key key, this.notesController}) : super(key: key);
+  final String intialValue;
+  final void Function(String initialValue) onChanged;
+  const AddNotes(
+      {Key key, this.notesController, this.intialValue, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,8 @@ class AddNotes extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: TextFormField(
         controller: notesController,
+        initialValue: intialValue,
+        onChanged: onChanged,
         expands: true,
         maxLines: null,
         enableInteractiveSelection: true,
