@@ -21,7 +21,8 @@ class _EditNotesState extends State<EditNotes> {
   Widget flotingButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        if (Get.context.mediaQueryViewInsets.bottom != 0) {
+        if (Get.context.mediaQueryViewInsets.bottom != 0 &&
+            widget.initalValue != '') {
           Database().updateNotes(widget.initalValue, _authController.user.uid,
               widget.notesModel.notesId);
           Get.snackbar('Notes Updated', 'Your notes are modified.',
@@ -40,7 +41,8 @@ class _EditNotesState extends State<EditNotes> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       tooltip:
           (Get.context.mediaQueryViewInsets.bottom != 0) ? 'Update' : 'Delete',
-      child: (Get.context.mediaQueryViewInsets.bottom != 0)
+      child: (Get.context.mediaQueryViewInsets.bottom != 0 &&
+              widget.initalValue != '')
           ? Icon(FontAwesomeIcons.check)
           : Icon(FontAwesomeIcons.trash),
     );

@@ -43,7 +43,7 @@ class _HomescreenState extends State<Homescreen> {
           ),
         ],
       ),
-      margin: EdgeInsets.only(right: 10, left: 10),
+      // margin: EdgeInsets.only(right: 10, left: 10),
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

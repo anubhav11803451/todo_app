@@ -17,6 +17,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   final AuthController _authController = Get.put(AuthController());
   AnimationController _animationController;
   Animation<Color> _colorTween;
+  String text;
   @override
   void initState() {
     super.initState();
@@ -26,6 +27,13 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
     _colorTween = _animationController
         .drive(ColorTween(begin: Colors.deepPurple[100], end: Colors.white));
+    if (DateTime.now().hour < 12) {
+      text = 'Good morning';
+    } else if (DateTime.now().hour >= 12 && DateTime.now().hour < 18) {
+      text = 'Good afternoon';
+    } else {
+      text = 'Good evening';
+    }
   }
 
   @override
@@ -46,13 +54,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // Icon(FontAwesomeIcons.userAlt, size: 50),
-                Text(
-                  'Hey ! ${_.user.name}\nit\'s\n${DateFormat('hh:mm a\nd MMMM yy').format(DateTime.now())}',
-                  style: GoogleFonts.montserratAlternates(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                RichText(
+                  text: TextSpan(
+                    text: '$text,\n',
+                    style: GoogleFonts.montserratAlternates(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: _.user.name,
+                        style: GoogleFonts.montserratAlternates(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 FlatButton(
@@ -62,7 +81,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                   child: Text(
                     'Sign out',
                     style: GoogleFonts.indieFlower(
-                      color: Colors.white70,
+                      color: Colors.black38,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
