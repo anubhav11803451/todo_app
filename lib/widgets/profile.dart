@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         style: GoogleFonts.montserratAlternates(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white70,
+                          color: Colors.black38,
                         ),
                       )
                     ],

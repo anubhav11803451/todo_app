@@ -17,7 +17,8 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final AuthController _authController = Get.put(AuthController());
   final TextEditingController _notesController = TextEditingController();
-  final TextEditingController _todoController = TextEditingController();
+  final TextEditingController _todoContentController = TextEditingController();
+  final TextEditingController _todotitleController = TextEditingController();
   int selectedIndex = 1;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
@@ -53,7 +54,10 @@ class _HomescreenState extends State<Homescreen> {
             title: Text('Todo'),
             onTap: () {
               setState(() {
-                swapWidget = AddTodo(todoController: _todoController);
+                swapWidget = AddTodo(
+                  todoContentController: _todoContentController,
+                  todoTitleController: _todotitleController,
+                );
                 selectedIndex = index[2];
                 Get.back();
               });
@@ -99,7 +103,10 @@ class _HomescreenState extends State<Homescreen> {
                 selectedIndex = index[0];
               });
               _notesController.clear();
+              _todoContentController.clear();
+              _todotitleController.clear();
             },
+            enableFeedback: true,
           ),
           IconButton(
             icon: icons[1],
@@ -111,7 +118,10 @@ class _HomescreenState extends State<Homescreen> {
                 selectedIndex = index[1];
               });
               _notesController.clear();
+              _todoContentController.clear();
+              _todotitleController.clear();
             },
+            enableFeedback: true,
           ),
         ],
       ),
@@ -136,10 +146,13 @@ class _HomescreenState extends State<Homescreen> {
               snackPosition: SnackPosition.BOTTOM,
               overlayBlur: 0.5,
               duration: Duration(milliseconds: 800));
-        } else if (_todoController.text != '' &&
+        } else if (_todotitleController.text != '' &&
+            _todoContentController.text != '' &&
             MediaQuery.of(context).viewInsets.bottom != 0) {
-          Database().addTodo(_todoController.text, _authController.user.uid);
-          _todoController.clear();
+          Database().addTodo(_todotitleController.text,
+              _todoContentController.text, _authController.user.uid);
+          _todoContentController.clear();
+          _todotitleController.clear();
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
@@ -153,7 +166,10 @@ class _HomescreenState extends State<Homescreen> {
       },
       backgroundColor: Colors.deepPurple[100],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      tooltip: selectedIndex == 2 ? 'Add Notes' : 'Create New',
+      tooltip:
+          selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
+              ? 'Save'
+              : 'Create New',
       child: selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
           ? Icon(FontAwesomeIcons.check)
           : Icon(FontAwesomeIcons.pen),

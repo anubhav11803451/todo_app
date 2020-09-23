@@ -98,7 +98,7 @@ class Database {
     }
   }
 
-  Future<void> addTodo(String content, String uid) async {
+  Future<void> addTodo(String title, String content, String uid) async {
     try {
       await _firestore
           .collection("users")
@@ -106,6 +106,7 @@ class Database {
           .collection("todos")
           .add({
         'dateCreated': Timestamp.now(),
+        'title': title,
         'content': content,
         'done': false,
       });

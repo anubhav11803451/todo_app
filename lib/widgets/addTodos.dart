@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddTodo extends StatelessWidget {
-  final TextEditingController todoController;
-  const AddTodo({Key key, this.todoController}) : super(key: key);
+  final TextEditingController todoContentController;
+  final TextEditingController todoTitleController;
+  const AddTodo({Key key, this.todoContentController, this.todoTitleController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +19,44 @@ class AddTodo extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 30, bottom: 5),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: TextFormField(
-        controller: todoController,
-        // initialValue: intialValue,
-        // onChanged: onChanged,
-        expands: true,
-        maxLines: null,
-        enableInteractiveSelection: true,
-        cursorColor: Colors.deepPurple[200],
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "What's on your list today?",
-          hintStyle: GoogleFonts.montserrat(
-            fontSize: 15,
+      child: Wrap(
+        children: [
+          TextFormField(
+            controller: todoTitleController,
+            cursorColor: Colors.deepPurple[200],
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Colors.deepPurple[100], width: 2.0)),
+              hintText: "Title",
+              hintStyle: GoogleFonts.montserrat(
+                fontSize: 18,
+              ),
+            ),
+            style: GoogleFonts.montserratAlternates(fontSize: 18),
           ),
-        ),
-        style: GoogleFonts.montserratAlternates(fontSize: 18),
+          Expanded(
+            child: Container(
+              height: 500,
+              child: TextFormField(
+                controller: todoContentController,
+                expands: true,
+                maxLines: null,
+                // minLines: null,
+                enableInteractiveSelection: true,
+                cursorColor: Colors.deepPurple[200],
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "What's on your list today?",
+                  hintStyle: GoogleFonts.montserrat(
+                    fontSize: 14,
+                  ),
+                ),
+                style: GoogleFonts.montserrat(fontSize: 15),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

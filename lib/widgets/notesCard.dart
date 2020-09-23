@@ -15,6 +15,7 @@ class NotesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Container(
+      // key: UniqueKey(),
       height: 100,
       width: 200,
       decoration: BoxDecoration(

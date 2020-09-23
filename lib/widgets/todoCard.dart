@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -19,9 +20,11 @@ class _TodoCardState extends State<TodoCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      // key: UniqueKey(),
       child: ListTile(
+        contentPadding: EdgeInsets.all(5),
         title: Text(
-          widget.todoModel.content,
+          widget.todoModel.title.capitalizeFirst(widget.todoModel.title),
           style: GoogleFonts.montserrat(),
         ),
         subtitle: Text(
@@ -31,12 +34,22 @@ class _TodoCardState extends State<TodoCard> {
                   .toString(),
           style: GoogleFonts.montserrat(),
         ),
-        trailing: Checkbox(
+        leading: Checkbox(
           activeColor: Colors.deepPurple[200],
           value: widget.todoModel.done,
           onChanged: (newValue) {
             Database().updateTodo(
                 newValue, _authController.user.uid, widget.todoModel.todoId);
+          },
+        ),
+        trailing: IconButton(
+          icon: Icon(
+            FontAwesomeIcons.trash,
+            size: 18,
+          ),
+          onPressed: () {
+            Database()
+                .deleteTodo(widget.todoModel.todoId, _authController.user.uid);
           },
         ),
       ),
