@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:todo_app/services/database.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/controllers/usercontroller.dart';
-import 'package:todo_app/services/database.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -29,10 +28,12 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         .drive(ColorTween(begin: Colors.deepPurple[100], end: Colors.white));
     if (DateTime.now().hour < 12) {
       text = 'Good morning';
-    } else if (DateTime.now().hour >= 12 && DateTime.now().hour < 18) {
+    } else if (DateTime.now().hour >= 12 && DateTime.now().hour < 16) {
       text = 'Good afternoon';
-    } else {
+    } else if (DateTime.now().hour >= 16 && DateTime.now().hour < 22) {
       text = 'Good evening';
+    } else {
+      text = 'Good night';
     }
   }
 

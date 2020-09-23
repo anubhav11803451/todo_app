@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/services/database.dart';
 import 'package:todo_app/widgets/addNotes.dart';
+import 'package:todo_app/widgets/addTodos.dart';
 import 'package:todo_app/widgets/profile.dart';
 import 'package:todo_app/widgets/home.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,52 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final AuthController _authController = Get.put(AuthController());
   final TextEditingController _notesController = TextEditingController();
+  final TextEditingController _todoController = TextEditingController();
   int selectedIndex = 1;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
-    Icon(FontAwesomeIcons.tasks),
+    Icon(FontAwesomeIcons.home),
     Icon(FontAwesomeIcons.userAlt),
   ];
+
+  Widget mybottomSheet(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Wrap(
+        // crossAxisAlignment: WrapCrossAlignment.center,
+        // runSpacing: 5,
+        children: <Widget>[
+          ListTile(
+              leading: Icon(FontAwesomeIcons.penSquare),
+              title: Text('Note'),
+              onTap: () {
+                setState(() {
+                  swapWidget = AddNotes(notesController: _notesController);
+                  selectedIndex = index[2];
+                  Get.back();
+                });
+              }),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.clipboardCheck),
+            title: Text('Todo'),
+            onTap: () {
+              setState(() {
+                swapWidget = AddTodo(todoController: _todoController);
+                selectedIndex = index[2];
+                Get.back();
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget bottomAppBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -80,11 +121,11 @@ class _HomescreenState extends State<Homescreen> {
   Widget flotingButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        setState(() {
-          selectedIndex = index[2];
-        });
-        if (_notesController.text != '') {
-          Database().addTodos(_notesController.text, _authController.user.uid);
+        if (MediaQuery.of(context).viewInsets.bottom == 0) {
+          Get.bottomSheet(mybottomSheet(context));
+        } else if (_notesController.text != '' &&
+            MediaQuery.of(context).viewInsets.bottom != 0) {
+          Database().addNotes(_notesController.text, _authController.user.uid);
           _notesController.clear();
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
@@ -92,22 +133,34 @@ class _HomescreenState extends State<Homescreen> {
           });
           Get.snackbar('Note Created', 'You can modify it later.',
               icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM);
-        } else if (MediaQuery.of(context).viewInsets.bottom != 0) {
-          Get.snackbar('No Content', 'Write something to create note.',
+              snackPosition: SnackPosition.BOTTOM,
+              overlayBlur: 0.5,
+              duration: Duration(milliseconds: 800));
+        } else if (_todoController.text != '' &&
+            MediaQuery.of(context).viewInsets.bottom != 0) {
+          Database().addTodo(_todoController.text, _authController.user.uid);
+          _todoController.clear();
+          FocusScope.of(context).unfocus(); // helps to dipose keyboard
+          setState(() {
+            selectedIndex = index[0];
+          });
+          Get.snackbar('Todo added', 'When complete tick the checkbox.',
               icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM);
+              snackPosition: SnackPosition.BOTTOM,
+              overlayBlur: 0.5,
+              duration: Duration(milliseconds: 800));
         }
       },
       backgroundColor: Colors.deepPurple[100],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       tooltip: selectedIndex == 2 ? 'Add Notes' : 'Create New',
-      child: selectedIndex == 2
+      child: selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
           ? Icon(FontAwesomeIcons.check)
-          : Icon(FontAwesomeIcons.plus),
+          : Icon(FontAwesomeIcons.pen),
     );
   }
 
+  Widget swapWidget;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,12 +175,10 @@ class _HomescreenState extends State<Homescreen> {
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 800),
         child: selectedIndex == 0
-            ? home(context)
+            ? Homebody()
             : AnimatedSwitcher(
                 duration: Duration(milliseconds: 800),
-                child: selectedIndex == 1
-                    ? Profile()
-                    : AddNotes(notesController: _notesController),
+                child: selectedIndex == 1 ? Profile() : swapWidget,
                 switchOutCurve: Curves.easeInOutCubic,
                 switchInCurve: Curves.fastLinearToSlowEaseIn,
                 transitionBuilder:

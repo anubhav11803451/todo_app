@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_app/models/notesmodel.dart';
+import 'package:todo_app/models/todomodel.dart';
 import 'package:todo_app/models/usermodel.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,7 @@ class Database {
     }
   }
 
-  Future<void> addTodos(String content, String uid) async {
+  Future<void> addNotes(String content, String uid) async {
     try {
       await _firestore
           .collection('users')
@@ -40,7 +41,7 @@ class Database {
           .add({
         'dateCreated': Timestamp.now(),
         'content': content,
-        'done': false,
+        // 'done': false,
       });
     } catch (e) {
       print(e);
@@ -48,7 +49,7 @@ class Database {
     }
   }
 
-  Stream<List<NotesModel>> todoStream(String uid) {
+  Stream<List<NotesModel>> notesStream(String uid) {
     return _firestore
         .collection('users')
         .document(uid)
@@ -83,13 +84,74 @@ class Database {
     }
   }
 
-  Future<void> delete(String noteId, String uid) async {
+  Future<void> deleteNotes(String noteId, String uid) async {
     try {
       _firestore
           .collection('users')
           .document(uid)
           .collection('notes')
           .document(noteId)
+          .delete();
+      Get.back();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addTodo(String content, String uid) async {
+    try {
+      await _firestore
+          .collection("users")
+          .document(uid)
+          .collection("todos")
+          .add({
+        'dateCreated': Timestamp.now(),
+        'content': content,
+        'done': false,
+      });
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Stream<List<TodoModel>> todoStream(String uid) {
+    return _firestore
+        .collection("users")
+        .document(uid)
+        .collection("todos")
+        .orderBy("dateCreated", descending: true)
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<TodoModel> retVal = List();
+      query.documents.forEach((element) {
+        retVal.add(TodoModel.fromDocumentSnapshot(element));
+      });
+      return retVal;
+    });
+  }
+
+  Future<void> updateTodo(bool newValue, String uid, String todoId) async {
+    try {
+      _firestore
+          .collection("users")
+          .document(uid)
+          .collection("todos")
+          .document(todoId)
+          .updateData({"done": newValue});
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> deleteTodo(String todoId, String uid) async {
+    try {
+      _firestore
+          .collection("users")
+          .document(uid)
+          .collection("todos")
+          .document(todoId)
           .delete();
       Get.back();
     } catch (e) {

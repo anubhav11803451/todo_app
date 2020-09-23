@@ -27,14 +27,18 @@ class _EditNotesState extends State<EditNotes> {
               widget.notesModel.notesId);
           Get.snackbar('Notes Updated', 'Your notes are modified.',
               icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM);
+              snackPosition: SnackPosition.BOTTOM,
+              overlayBlur: 0.5,
+              duration: Duration(milliseconds: 800));
         } else {
           Database()
-              .delete(widget.notesModel.notesId, _authController.user.uid);
+              .deleteNotes(widget.notesModel.notesId, _authController.user.uid);
 
           Get.snackbar('Note Deleted', 'Your notes are important.',
               icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM);
+              snackPosition: SnackPosition.BOTTOM,
+              overlayBlur: 0.5,
+              duration: Duration(milliseconds: 800));
         }
       },
       backgroundColor: Colors.deepPurple[100],
@@ -68,16 +72,10 @@ class _EditNotesState extends State<EditNotes> {
               setState(() {
                 widget.initalValue = value;
               });
-              // Database().updateNotes(
-              //     value, _authController.user.uid, widget.notesModel.notesId);
-              // print(widget.initalValue);
             } else if (value == '') {
               setState(() {
                 widget.initalValue = value;
               });
-              // Database()
-              //     .delete(widget.notesModel.notesId, _authController.user.uid);
-              // Get.back();
             }
           },
         ),

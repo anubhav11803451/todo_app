@@ -5,12 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 class NotesCard extends StatelessWidget {
-  final String content, date;
   final NotesModel notesModel;
   const NotesCard({
     Key key,
-    this.content,
-    this.date,
     this.notesModel,
   }) : super(key: key);
 
@@ -18,13 +15,16 @@ class NotesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Container(
+      height: 100,
+      width: 200,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
+            offset: Offset(0, 4),
             color: Colors.deepPurple[200],
-            blurRadius: 20,
+            blurRadius: 15,
             spreadRadius: -5,
           ),
         ],

@@ -5,5 +5,6 @@ class AuthBinding extends Bindings {
   @override
   void dependencies() async {
     Get.put<AuthController>(AuthController(), permanent: true);
+    // Get.put<UserController>(UserController(), permanent: true);
   }
 }
