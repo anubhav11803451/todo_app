@@ -27,7 +27,7 @@ class AddTodo extends StatelessWidget {
         cursorColor: Colors.deepPurple[200],
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: "What's your plan?",
+          hintText: "What's on your list today?",
           hintStyle: GoogleFonts.montserrat(
             fontSize: 15,
           ),
