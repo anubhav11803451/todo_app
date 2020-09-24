@@ -234,8 +234,8 @@ class _HomescreenState extends State<Homescreen> {
                 : AnimatedSwitcher(
                     duration: Duration(milliseconds: 800),
                     child: selectedIndex == 1 ? Profile() : swapWidget,
-                    switchOutCurve: Curves.easeInOutCubic,
-                    switchInCurve: Curves.fastLinearToSlowEaseIn,
+                    switchOutCurve: Curves.easeOutSine,
+                    switchInCurve: Curves.easeInSine,
                     transitionBuilder:
                         (Widget child, Animation<double> animation) =>
                             ScaleTransition(
@@ -243,8 +243,8 @@ class _HomescreenState extends State<Homescreen> {
                       child: child,
                     ),
                   ),
-            switchOutCurve: Curves.easeInOutCubic,
-            switchInCurve: Curves.fastLinearToSlowEaseIn,
+            switchOutCurve: Curves.easeOutSine,
+            switchInCurve: Curves.easeInOutSine,
             transitionBuilder: (Widget child, Animation<double> animation) =>
                 ScaleTransition(
               scale: animation,

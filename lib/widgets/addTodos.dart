@@ -49,7 +49,7 @@ class AddTodo extends StatelessWidget {
                   border: InputBorder.none,
                   hintText: "What's on your list today?",
                   hintStyle: GoogleFonts.montserrat(
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                 ),
                 style: GoogleFonts.montserrat(fontSize: 15),

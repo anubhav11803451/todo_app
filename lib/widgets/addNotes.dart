@@ -39,8 +39,9 @@ class AddNotes extends StatelessWidget {
             onChanged: onChangedTi,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.deepPurple[100], width: 2.0)),
+                borderSide:
+                    BorderSide(color: Colors.deepPurple[100], width: 2.0),
+              ),
               hintText: "Title",
               hintStyle: GoogleFonts.montserrat(
                 fontSize: 18,
@@ -64,7 +65,7 @@ class AddNotes extends StatelessWidget {
                   fontSize: 15,
                 ),
               ),
-              style: GoogleFonts.montserratAlternates(fontSize: 18),
+              style: GoogleFonts.montserratAlternates(fontSize: 15),
             ),
           ),
         ],
