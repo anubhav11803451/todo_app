@@ -24,6 +24,7 @@ class _HomescreenState extends State<Homescreen> {
   final TextEditingController _todoContentController = TextEditingController();
   final TextEditingController _todotitleController = TextEditingController();
   int selectedIndex = 1;
+  int selectedIndexH;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
     Icon(FontAwesomeIcons.home),
@@ -169,6 +170,7 @@ class _HomescreenState extends State<Homescreen> {
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
+            selectedIndexH = 0;
           });
           Get.snackbar('Note Created', 'You can modify it later.',
               icon: Icon(FontAwesomeIcons.pen),
@@ -185,6 +187,7 @@ class _HomescreenState extends State<Homescreen> {
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
+            selectedIndexH = 1;
           });
           Get.snackbar('Todo added', 'When complete tick the checkbox.',
               icon: Icon(FontAwesomeIcons.pen),
@@ -223,7 +226,9 @@ class _HomescreenState extends State<Homescreen> {
           AnimatedSwitcher(
             duration: Duration(milliseconds: 800),
             child: selectedIndex == 0
-                ? Homebody()
+                ? Homebody(
+                    selectedIndex: selectedIndexH,
+                  )
                 : AnimatedSwitcher(
                     duration: Duration(milliseconds: 800),
                     child: selectedIndex == 1 ? Profile() : swapWidget,

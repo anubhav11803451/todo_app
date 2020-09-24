@@ -21,44 +21,48 @@ class _TodoCardState extends State<TodoCard> {
   Widget build(BuildContext context) {
     return Card(
       // key: UniqueKey(),
-      child: ExpansionTile(
-        tilePadding: EdgeInsets.all(0),
-        title: Text(
-          widget.todoModel.title.capitalizeFirst(widget.todoModel.title),
-          style: GoogleFonts.montserrat(),
-        ),
-        subtitle: Text(
-          'Created at: ' +
-              DateFormat('hh:mm a d MMM')
-                  .format(widget.todoModel.dateCreated.toDate())
-                  .toString(),
-          style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13),
-        ),
-        leading: Checkbox(
-          activeColor: Colors.deepPurple[100],
-          value: widget.todoModel.done,
-          onChanged: (newValue) {
-            Database().updateTodo(
-                newValue, _authController.user.uid, widget.todoModel.todoId);
-          },
-        ),
-        trailing: IconButton(
-          icon: Icon(
-            FontAwesomeIcons.trash,
-            size: 18,
-          ),
-          onPressed: () {
-            Database()
-                .deleteTodo(widget.todoModel.todoId, _authController.user.uid);
-          },
-        ),
-        childrenPadding: EdgeInsets.all(5),
-        children: [
-          Text(
-            widget.todoModel.content,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: ExpansionTile(
+          // backgroundColor: Colors.deepPurple[100],
+          tilePadding: EdgeInsets.all(0),
+          title: Text(
+            widget.todoModel.title.capitalizeFirst(widget.todoModel.title),
             style: GoogleFonts.montserrat(),
           ),
-        ],
+          subtitle: Text(
+            'Created at: ' +
+                DateFormat('hh:mm a d MMM')
+                    .format(widget.todoModel.dateCreated.toDate())
+                    .toString(),
+            style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13),
+          ),
+          leading: Checkbox(
+            activeColor: Colors.deepPurple[100],
+            value: widget.todoModel.done,
+            onChanged: (newValue) {
+              Database().updateTodo(
+                  newValue, _authController.user.uid, widget.todoModel.todoId);
+            },
+          ),
+          trailing: IconButton(
+            icon: Icon(
+              FontAwesomeIcons.trash,
+              size: 18,
+            ),
+            onPressed: () {
+              Database().deleteTodo(
+                  widget.todoModel.todoId, _authController.user.uid);
+            },
+          ),
+          childrenPadding: EdgeInsets.all(5),
+          children: [
+            Text(
+              widget.todoModel.content,
+              style: GoogleFonts.montserrat(),
+            ),
+          ],
+        ),
       ),
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       elevation: 4,

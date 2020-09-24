@@ -7,8 +7,10 @@ import 'package:todo_app/screens/editNotes.dart';
 import 'package:todo_app/controllers/todocontroller.dart';
 import 'package:todo_app/controllers/notescontroller.dart';
 
+// ignore: must_be_immutable
 class Homebody extends StatefulWidget {
-  Homebody({Key key}) : super(key: key);
+  int selectedIndex;
+  Homebody({Key key, this.selectedIndex = 1}) : super(key: key);
 
   @override
   _HomebodyState createState() => _HomebodyState();
@@ -17,7 +19,6 @@ class Homebody extends StatefulWidget {
 class _HomebodyState extends State<Homebody> {
   final TodoController todoController = Get.put(TodoController());
 
-  int selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,14 +47,14 @@ class _HomebodyState extends State<Homebody> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedIndex = 0;
+                            widget.selectedIndex = 0;
                           });
                         },
                         child: Text(
                           'Notes',
                           style: GoogleFonts.indieFlower(
-                              fontSize: selectedIndex == 0 ? 20 : 16,
-                              color: selectedIndex == 0
+                              fontSize: widget.selectedIndex == 0 ? 20 : 16,
+                              color: widget.selectedIndex == 0
                                   ? Colors.white
                                   : Colors.grey,
                               fontWeight: FontWeight.bold),
@@ -62,14 +63,14 @@ class _HomebodyState extends State<Homebody> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedIndex = 1;
+                            widget.selectedIndex = 1;
                           });
                         },
                         child: Text(
                           'Todo\'s',
                           style: GoogleFonts.indieFlower(
-                              fontSize: selectedIndex == 1 ? 20 : 16,
-                              color: selectedIndex == 1
+                              fontSize: widget.selectedIndex == 1 ? 20 : 16,
+                              color: widget.selectedIndex == 1
                                   ? Colors.white
                                   : Colors.grey,
                               fontWeight: FontWeight.bold),
@@ -80,7 +81,7 @@ class _HomebodyState extends State<Homebody> {
                 ),
                 Expanded(
                   // child: Text('data'),
-                  child: selectedIndex == 0
+                  child: widget.selectedIndex == 0
                       ? GridView.builder(
                           // key: UniqueKey(),
                           gridDelegate:
