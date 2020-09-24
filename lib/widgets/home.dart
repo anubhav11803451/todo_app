@@ -78,51 +78,47 @@ class _HomebodyState extends State<Homebody> {
                     ],
                   ),
                 ),
-                notesController.notes.length != 0
-                    ? Expanded(
-                        // child: Text('data'),
-                        child: selectedIndex == 0
-                            ? GridView.builder(
-                                // key: UniqueKey(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                ),
-                                padding: EdgeInsets.only(top: 5),
-                                itemCount: notesController.notes.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    child: NotesCard(
-                                        key: UniqueKey(),
-                                        notesModel:
-                                            notesController.notes[index]),
-                                    onTap: () {
-                                      Get.to(
-                                        EditNotes(
-                                          initalTitleValue: notesController
-                                              .notes[index].title,
-                                          initalContentValue: notesController
-                                              .notes[index].content,
-                                          notesModel:
-                                              notesController.notes[index],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              )
-                            : ListView.builder(
-                                // key: UniqueKey(),
-                                padding: EdgeInsets.only(top: 10),
-                                itemCount: todoController.todos.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return TodoCard(
-                                      key: UniqueKey(),
-                                      todoModel: todoController.todos[index]);
-                                },
-                              ),
-                      )
-                    : Text(''),
+                Expanded(
+                  // child: Text('data'),
+                  child: selectedIndex == 0
+                      ? GridView.builder(
+                          // key: UniqueKey(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          ),
+                          padding: EdgeInsets.only(top: 5),
+                          itemCount: notesController.notes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              child: NotesCard(
+                                  key: UniqueKey(),
+                                  notesModel: notesController.notes[index]),
+                              onTap: () {
+                                Get.to(
+                                  EditNotes(
+                                    initalTitleValue:
+                                        notesController.notes[index].title,
+                                    initalContentValue:
+                                        notesController.notes[index].content,
+                                    notesModel: notesController.notes[index],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        )
+                      : ListView.builder(
+                          // key: UniqueKey(),
+                          padding: EdgeInsets.only(top: 10),
+                          itemCount: todoController.todos.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return TodoCard(
+                                key: UniqueKey(),
+                                todoModel: todoController.todos[index]);
+                          },
+                        ),
+                ),
               ],
             );
           } else {
