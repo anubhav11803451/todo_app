@@ -2,6 +2,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/animation/fadeanimation.dart';
+import 'package:todo_app/animation/variousdisc.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/services/database.dart';
 import 'package:todo_app/widgets/addNotes.dart';
@@ -120,6 +121,7 @@ class _HomescreenState extends State<Homescreen> {
               setState(() {
                 selectedIndex = index[0];
               });
+              _notesTitleController.clear();
               _notesContentController.clear();
               _todoContentController.clear();
               _todotitleController.clear();
@@ -139,6 +141,7 @@ class _HomescreenState extends State<Homescreen> {
                 setState(() {
                   selectedIndex = index[1];
                 });
+                _notesTitleController.clear();
                 _notesContentController.clear();
                 _todoContentController.clear();
                 _todotitleController.clear();
@@ -162,6 +165,7 @@ class _HomescreenState extends State<Homescreen> {
           Database().addNotes(_notesTitleController.text,
               _notesContentController.text, _authController.user.uid);
           _notesContentController.clear();
+          _notesTitleController.clear();
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
@@ -213,29 +217,34 @@ class _HomescreenState extends State<Homescreen> {
               : FloatingActionButtonLocation.endFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       backgroundColor: Colors.deepPurple[100],
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 800),
-        child: selectedIndex == 0
-            ? Homebody()
-            : AnimatedSwitcher(
-                duration: Duration(milliseconds: 800),
-                child: selectedIndex == 1 ? Profile() : swapWidget,
-                switchOutCurve: Curves.easeInOutCubic,
-                switchInCurve: Curves.fastLinearToSlowEaseIn,
-                transitionBuilder:
-                    (Widget child, Animation<double> animation) =>
-                        ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
-              ),
-        switchOutCurve: Curves.easeInOutCubic,
-        switchInCurve: Curves.fastLinearToSlowEaseIn,
-        transitionBuilder: (Widget child, Animation<double> animation) =>
-            ScaleTransition(
-          scale: animation,
-          child: child,
-        ),
+      body: Stack(
+        children: [
+          FadeAnimation(0.1, VariousDiscs(10, Colors.white30)),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 800),
+            child: selectedIndex == 0
+                ? Homebody()
+                : AnimatedSwitcher(
+                    duration: Duration(milliseconds: 800),
+                    child: selectedIndex == 1 ? Profile() : swapWidget,
+                    switchOutCurve: Curves.easeInOutCubic,
+                    switchInCurve: Curves.fastLinearToSlowEaseIn,
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) =>
+                            ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                  ),
+            switchOutCurve: Curves.easeInOutCubic,
+            switchInCurve: Curves.fastLinearToSlowEaseIn,
+            transitionBuilder: (Widget child, Animation<double> animation) =>
+                ScaleTransition(
+              scale: animation,
+              child: child,
+            ),
+          ),
+        ],
       ),
     );
   }

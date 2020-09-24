@@ -23,13 +23,13 @@ class _HomebodyState extends State<Homebody> {
     Size size = MediaQuery.of(context).size;
     return Container(
       key: UniqueKey(),
-      height: size.height,
+      // height: size.height,
       width: size.width,
       padding: EdgeInsets.only(left: 10, right: 10, top: 22),
       child: GetX(
-        // initState: (_) {
-        //   Get.put<TodoController>(TodoController());
-        // },
+        initState: (_) {
+          Get.put<TodoController>(TodoController());
+        },
         init: Get.put<NotesController>(NotesController()),
         builder: (NotesController notesController) {
           if (notesController != null &&
@@ -78,58 +78,51 @@ class _HomebodyState extends State<Homebody> {
                     ],
                   ),
                 ),
-                Expanded(
-                  // child: Text('data'),
-                  child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 800),
-                    child: selectedIndex == 0
-                        ? GridView.builder(
-                            // key: UniqueKey(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                            ),
-                            padding: EdgeInsets.only(top: 5),
-                            itemCount: notesController.notes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                child: NotesCard(
-                                    key: UniqueKey(),
-                                    notesModel: notesController.notes[index]),
-                                onTap: () {
-                                  Get.to(
-                                    EditNotes(
-                                      initalTitleValue:
-                                          notesController.notes[index].title,
-                                      initalContentValue:
-                                          notesController.notes[index].content,
-                                      notesModel: notesController.notes[index],
-                                    ),
+                notesController.notes.length != 0
+                    ? Expanded(
+                        // child: Text('data'),
+                        child: selectedIndex == 0
+                            ? GridView.builder(
+                                // key: UniqueKey(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                ),
+                                padding: EdgeInsets.only(top: 5),
+                                itemCount: notesController.notes.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    child: NotesCard(
+                                        key: UniqueKey(),
+                                        notesModel:
+                                            notesController.notes[index]),
+                                    onTap: () {
+                                      Get.to(
+                                        EditNotes(
+                                          initalTitleValue: notesController
+                                              .notes[index].title,
+                                          initalContentValue: notesController
+                                              .notes[index].content,
+                                          notesModel:
+                                              notesController.notes[index],
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                          )
-                        : ListView.builder(
-                            // key: UniqueKey(),
-                            padding: EdgeInsets.only(top: 10),
-                            itemCount: todoController.todos.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return TodoCard(
-                                  key: UniqueKey(),
-                                  todoModel: todoController.todos[index]);
-                            },
-                          ),
-                    switchOutCurve: Curves.easeInOutCubic,
-                    switchInCurve: Curves.fastLinearToSlowEaseIn,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) =>
-                            FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    ),
-                  ),
-                ),
+                              )
+                            : ListView.builder(
+                                // key: UniqueKey(),
+                                padding: EdgeInsets.only(top: 10),
+                                itemCount: todoController.todos.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return TodoCard(
+                                      key: UniqueKey(),
+                                      todoModel: todoController.todos[index]);
+                                },
+                              ),
+                      )
+                    : Text(''),
               ],
             );
           } else {
