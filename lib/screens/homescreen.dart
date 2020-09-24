@@ -24,7 +24,7 @@ class _HomescreenState extends State<Homescreen> {
   final TextEditingController _todoContentController = TextEditingController();
   final TextEditingController _todotitleController = TextEditingController();
   int selectedIndex = 1;
-  int selectedIndexH;
+  int selectedIndexH = 0;
   List<int> index = [0, 1, 2];
   List<Icon> icons = [
     Icon(FontAwesomeIcons.home),
@@ -121,6 +121,7 @@ class _HomescreenState extends State<Homescreen> {
             onPressed: () {
               setState(() {
                 selectedIndex = index[0];
+                selectedIndexH = 0;
               });
               _notesTitleController.clear();
               _notesContentController.clear();
@@ -141,6 +142,7 @@ class _HomescreenState extends State<Homescreen> {
               onPressed: () {
                 setState(() {
                   selectedIndex = index[1];
+                  selectedIndex = 1;
                 });
                 _notesTitleController.clear();
                 _notesContentController.clear();
