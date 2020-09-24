@@ -117,7 +117,7 @@ class _HomescreenState extends State<Homescreen> {
             icon: icons[0],
             color: selectedIndex == index[0]
                 ? Colors.deepPurple[100]
-                : Colors.grey,
+                : Colors.grey[600],
             onPressed: () {
               setState(() {
                 selectedIndex = index[0];
@@ -138,7 +138,7 @@ class _HomescreenState extends State<Homescreen> {
               icon: icons[1],
               color: selectedIndex == index[1]
                   ? Colors.deepPurple[100]
-                  : Colors.grey,
+                  : Colors.grey[600],
               onPressed: () {
                 setState(() {
                   selectedIndex = index[1];

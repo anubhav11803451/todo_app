@@ -16,9 +16,8 @@ class NotesCard extends StatelessWidget {
     // Size size = MediaQuery.of(context).size;
     return Container(
       // key: UniqueKey(),
-      height: 100,
-      width: 200,
       decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/images/abstc.png')),
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
@@ -54,7 +53,7 @@ class NotesCard extends StatelessWidget {
                   DateFormat('hh:mm a\nd MMM')
                       .format(notesModel.modifiedDate.toDate())
                       .toString(),
-          style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 12),
+          style: GoogleFonts.montserrat(color: Colors.grey[600], fontSize: 12),
         ),
       ),
     );

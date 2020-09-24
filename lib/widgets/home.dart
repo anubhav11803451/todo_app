@@ -56,7 +56,7 @@ class _HomebodyState extends State<Homebody> {
                               fontSize: widget.selectedIndex == 0 ? 20 : 16,
                               color: widget.selectedIndex == 0
                                   ? Colors.white
-                                  : Colors.grey,
+                                  : Colors.grey[600],
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -72,7 +72,7 @@ class _HomebodyState extends State<Homebody> {
                               fontSize: widget.selectedIndex == 1 ? 20 : 16,
                               color: widget.selectedIndex == 1
                                   ? Colors.white
-                                  : Colors.grey,
+                                  : Colors.grey[600],
                               fontWeight: FontWeight.bold),
                         ),
                       ),

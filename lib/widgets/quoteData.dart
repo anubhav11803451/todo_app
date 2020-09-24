@@ -59,10 +59,20 @@ class _QuoteDataState extends State<QuoteData>
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
+            decoration: BoxDecoration(
+                // color: Colors.white,
+                // image: DecorationImage(
+                //     image: AssetImage('assets/images/qu.png'), fit: BoxFit.fill),
+                // borderRadius: BorderRadius.circular(20),
+                ),
+            padding: EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 20),
             child: Column(
               children: [
-                Text(
+                SelectableText(
                   '" ' + snapshot.data.quoteText + ' "',
+                  showCursor: true,
+                  cursorColor: Colors.deepPurple[100],
+                  cursorWidth: 2,
                   style: GoogleFonts.indieFlower(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -94,7 +104,10 @@ class _QuoteDataState extends State<QuoteData>
             // ),
             child: Text(
               'Quotes of the day...',
-              style: GoogleFonts.indieFlower(color: Colors.white, fontSize: 18),
+              style: GoogleFonts.indieFlower(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
           );
         }

@@ -46,7 +46,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       key: UniqueKey(),
       height: size.height,
       width: size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: GetX<UserController>(
         initState: (_) async {
           Get.find<UserController>().user =
@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         builder: (_) {
           if (_.user.name != null) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FadeAnimation(

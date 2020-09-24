@@ -19,8 +19,22 @@ class _TodoCardState extends State<TodoCard> {
   final AuthController _authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // key: UniqueKey(),
+    return Container(
+      decoration: BoxDecoration(
+        color: widget.todoModel.done == true ? Colors.grey[300] : Colors.white,
+        image: DecorationImage(
+            image: AssetImage('assets/images/abstc.png'), fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            color: Colors.deepPurple[200],
+            blurRadius: 15,
+            spreadRadius: -5,
+          ),
+        ],
+      ),
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: ExpansionTile(
@@ -35,7 +49,8 @@ class _TodoCardState extends State<TodoCard> {
                 DateFormat('hh:mm a d MMM')
                     .format(widget.todoModel.dateCreated.toDate())
                     .toString(),
-            style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13),
+            style:
+                GoogleFonts.montserrat(color: Colors.grey[600], fontSize: 13),
           ),
           leading: Checkbox(
             activeColor: Colors.deepPurple[100],
@@ -64,10 +79,6 @@ class _TodoCardState extends State<TodoCard> {
           ],
         ),
       ),
-      margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: widget.todoModel.done == true ? Colors.grey[300] : Colors.white,
     );
   }
 }
