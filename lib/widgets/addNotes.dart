@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddNotes extends StatelessWidget {
-  final TextEditingController notesController;
-  final String intialValue;
-  final void Function(String initialValue) onChanged;
-  const AddNotes(
-      {Key key, this.notesController, this.intialValue, this.onChanged})
-      : super(key: key);
+  final TextEditingController notesContentController;
+  final TextEditingController notesTitleController;
+  final String intialContentValue;
+  final String intialTitleValue;
+  final void Function(String initialValue) onChangedCon;
+  final void Function(String initialValue) onChangedTi;
+  const AddNotes({
+    Key key,
+    this.notesTitleController,
+    this.notesContentController,
+    this.intialContentValue,
+    this.onChangedCon,
+    this.intialTitleValue,
+    this.onChangedTi,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +30,44 @@ class AddNotes extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 30, bottom: 5),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: TextFormField(
-        controller: notesController,
-        initialValue: intialValue,
-        onChanged: onChanged,
-        expands: true,
-        maxLines: null,
-        enableInteractiveSelection: true,
-        cursorColor: Colors.deepPurple[200],
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "What's on your beautiful mind?",
-          hintStyle: GoogleFonts.montserrat(
-            fontSize: 15,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: notesTitleController,
+            cursorColor: Colors.deepPurple[200],
+            initialValue: intialTitleValue,
+            onChanged: onChangedTi,
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Colors.deepPurple[100], width: 2.0)),
+              hintText: "Title",
+              hintStyle: GoogleFonts.montserrat(
+                fontSize: 18,
+              ),
+            ),
+            style: GoogleFonts.montserratAlternates(fontSize: 18),
           ),
-        ),
-        style: GoogleFonts.montserratAlternates(fontSize: 18),
+          Expanded(
+            child: TextFormField(
+              controller: notesContentController,
+              initialValue: intialContentValue,
+              onChanged: onChangedCon,
+              expands: true,
+              maxLines: null,
+              enableInteractiveSelection: true,
+              cursorColor: Colors.deepPurple[200],
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "What's on your beautiful mind?",
+                hintStyle: GoogleFonts.montserrat(
+                  fontSize: 15,
+                ),
+              ),
+              style: GoogleFonts.montserratAlternates(fontSize: 18),
+            ),
+          ),
+        ],
       ),
     );
   }

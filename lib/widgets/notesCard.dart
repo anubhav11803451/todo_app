@@ -34,11 +34,11 @@ class NotesCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: GridTile(
         child: Text(
-          notesModel.content.length >= 50
-              ? notesModel.content
+          notesModel.title.length >= 50
+              ? notesModel.title
                   .substring(0, 40)
-                  .capitalizeFirst(notesModel.content)
-              : notesModel.content.capitalizeFirst(notesModel.content),
+                  .capitalizeFirst(notesModel.title)
+              : notesModel.title.capitalizeFirst(notesModel.title),
           style: GoogleFonts.montserratAlternates(
             // color: Colors.deepPurple[400].withOpacity(0.7),
             fontSize: 15,

@@ -19,7 +19,7 @@ class AddTodo extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 30, bottom: 5),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Wrap(
+      child: Column(
         children: [
           TextFormField(
             controller: todoTitleController,

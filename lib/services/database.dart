@@ -32,15 +32,16 @@ class Database {
     }
   }
 
-  Future<void> addNotes(String content, String uid) async {
+  Future<void> addNotes(String title, String content, String uid) async {
     try {
       await _firestore
           .collection('users')
           .document(uid)
           .collection('notes')
           .add({
-        'dateCreated': Timestamp.now(),
+        'title': title,
         'content': content,
+        'dateCreated': Timestamp.now(),
         // 'done': false,
       });
     } catch (e) {
@@ -66,7 +67,7 @@ class Database {
   }
 
   Future<void> updateNotes(
-      String newContent, String uid, String notesId) async {
+      String newTitle, String newContent, String uid, String notesId) async {
     try {
       _firestore
           .collection('users')
@@ -74,6 +75,7 @@ class Database {
           .collection('notes')
           .document(notesId)
           .updateData({
+        'title': newTitle,
         'content': newContent,
         'modifiedDate': Timestamp.now(),
       });

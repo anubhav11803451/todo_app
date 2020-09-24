@@ -99,7 +99,9 @@ class _HomebodyState extends State<Homebody> {
                                 onTap: () {
                                   Get.to(
                                     EditNotes(
-                                      initalValue:
+                                      initalTitleValue:
+                                          notesController.notes[index].title,
+                                      initalContentValue:
                                           notesController.notes[index].content,
                                       notesModel: notesController.notes[index],
                                     ),
@@ -131,9 +133,12 @@ class _HomebodyState extends State<Homebody> {
               ],
             );
           } else {
-            return Text(
-              'Loading...',
-              style: GoogleFonts.indieFlower(color: Colors.white, fontSize: 18),
+            return Center(
+              child: Text(
+                'Loading...',
+                style:
+                    GoogleFonts.indieFlower(color: Colors.white, fontSize: 18),
+              ),
             );
           }
         },

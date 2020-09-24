@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_app/animation/fadeanimation.dart';
 import 'package:todo_app/services/database.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/controllers/usercontroller.dart';
+import 'package:todo_app/widgets/quoteData.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -54,40 +56,51 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           if (_.user.name != null) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                RichText(
-                  text: TextSpan(
-                    text: '$text,\n',
-                    style: GoogleFonts.montserratAlternates(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: _.user.name,
-                        style: GoogleFonts.montserratAlternates(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black38,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    _authController.signOut();
-                  },
-                  child: Text(
-                    'Sign out',
-                    style: GoogleFonts.indieFlower(
-                      color: Colors.black38,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                FadeAnimation(
+                  0.6,
+                  RichText(
+                    text: TextSpan(
+                      text: '$text,\n',
+                      style: GoogleFonts.montserratAlternates(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: _.user.name,
+                          style: GoogleFonts.montserratAlternates(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black38,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
+                FadeAnimation(1.0, QuoteData()),
+                // FadeAnimation(
+                //   0.8,
+                //   Align(
+                //     alignment: Alignment.bottomRight,
+                //     child: FlatButton(
+                //       onPressed: () {
+                //         _authController.signOut();
+                //       },
+                //       child: Text(
+                //         'Sign out',
+                //         style: GoogleFonts.indieFlower(
+                //           color: Colors.redAccent,
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             );
           } else {

@@ -21,8 +21,8 @@ class _TodoCardState extends State<TodoCard> {
   Widget build(BuildContext context) {
     return Card(
       // key: UniqueKey(),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(5),
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.all(0),
         title: Text(
           widget.todoModel.title.capitalizeFirst(widget.todoModel.title),
           style: GoogleFonts.montserrat(),
@@ -32,10 +32,10 @@ class _TodoCardState extends State<TodoCard> {
               DateFormat('hh:mm a d MMM')
                   .format(widget.todoModel.dateCreated.toDate())
                   .toString(),
-          style: GoogleFonts.montserrat(),
+          style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13),
         ),
         leading: Checkbox(
-          activeColor: Colors.deepPurple[200],
+          activeColor: Colors.deepPurple[100],
           value: widget.todoModel.done,
           onChanged: (newValue) {
             Database().updateTodo(
@@ -52,6 +52,13 @@ class _TodoCardState extends State<TodoCard> {
                 .deleteTodo(widget.todoModel.todoId, _authController.user.uid);
           },
         ),
+        childrenPadding: EdgeInsets.all(5),
+        children: [
+          Text(
+            widget.todoModel.content,
+            style: GoogleFonts.montserrat(),
+          ),
+        ],
       ),
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       elevation: 4,

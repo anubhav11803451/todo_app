@@ -8,9 +8,15 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class EditNotes extends StatefulWidget {
-  String initalValue;
+  String initalContentValue;
+  String initalTitleValue;
   final NotesModel notesModel;
-  EditNotes({Key key, this.initalValue, this.notesModel}) : super(key: key);
+  EditNotes(
+      {Key key,
+      this.initalContentValue,
+      this.notesModel,
+      this.initalTitleValue})
+      : super(key: key);
 
   @override
   _EditNotesState createState() => _EditNotesState();
@@ -22,8 +28,11 @@ class _EditNotesState extends State<EditNotes> {
     return FloatingActionButton(
       onPressed: () {
         if (Get.context.mediaQueryViewInsets.bottom != 0 &&
-            widget.initalValue != '') {
-          Database().updateNotes(widget.initalValue, _authController.user.uid,
+            widget.initalContentValue != '') {
+          Database().updateNotes(
+              widget.initalTitleValue,
+              widget.initalContentValue,
+              _authController.user.uid,
               widget.notesModel.notesId);
           Get.snackbar('Notes Updated', 'Your notes are modified.',
               icon: Icon(FontAwesomeIcons.pen),
@@ -46,7 +55,7 @@ class _EditNotesState extends State<EditNotes> {
       tooltip:
           (Get.context.mediaQueryViewInsets.bottom != 0) ? 'Update' : 'Delete',
       child: (Get.context.mediaQueryViewInsets.bottom != 0 &&
-              widget.initalValue != '')
+              widget.initalContentValue != '')
           ? Icon(FontAwesomeIcons.check)
           : Icon(FontAwesomeIcons.trash),
     );
@@ -66,15 +75,27 @@ class _EditNotesState extends State<EditNotes> {
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 800),
         child: AddNotes(
-          intialValue: widget.initalValue,
-          onChanged: (value) {
+          intialTitleValue: widget.initalTitleValue,
+          onChangedTi: (value) {
             if (value != '') {
               setState(() {
-                widget.initalValue = value;
+                widget.initalTitleValue = value;
               });
             } else if (value == '') {
               setState(() {
-                widget.initalValue = value;
+                widget.initalTitleValue = value;
+              });
+            }
+          },
+          intialContentValue: widget.initalContentValue,
+          onChangedCon: (value) {
+            if (value != '') {
+              setState(() {
+                widget.initalContentValue = value;
+              });
+            } else if (value == '') {
+              setState(() {
+                widget.initalContentValue = value;
               });
             }
           },

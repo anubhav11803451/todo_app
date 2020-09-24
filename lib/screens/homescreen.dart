@@ -1,5 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_app/animation/fadeanimation.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/services/database.dart';
 import 'package:todo_app/widgets/addNotes.dart';
@@ -16,7 +18,8 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   final AuthController _authController = Get.put(AuthController());
-  final TextEditingController _notesController = TextEditingController();
+  final TextEditingController _notesContentController = TextEditingController();
+  final TextEditingController _notesTitleController = TextEditingController();
   final TextEditingController _todoContentController = TextEditingController();
   final TextEditingController _todotitleController = TextEditingController();
   int selectedIndex = 1;
@@ -40,18 +43,33 @@ class _HomescreenState extends State<Homescreen> {
         // runSpacing: 5,
         children: <Widget>[
           ListTile(
-              leading: Icon(FontAwesomeIcons.penSquare),
-              title: Text('Note'),
+              leading: Icon(
+                FontAwesomeIcons.penSquare,
+                color: Colors.deepPurple[100],
+              ),
+              title: Text(
+                'Note',
+                style: GoogleFonts.indieFlower(fontWeight: FontWeight.bold),
+              ),
               onTap: () {
                 setState(() {
-                  swapWidget = AddNotes(notesController: _notesController);
+                  swapWidget = AddNotes(
+                    notesContentController: _notesContentController,
+                    notesTitleController: _notesTitleController,
+                  );
                   selectedIndex = index[2];
                   Get.back();
                 });
               }),
           ListTile(
-            leading: Icon(FontAwesomeIcons.clipboardCheck),
-            title: Text('Todo'),
+            leading: Icon(
+              FontAwesomeIcons.clipboardCheck,
+              color: Colors.deepPurple[100],
+            ),
+            title: Text(
+              'Todo',
+              style: GoogleFonts.indieFlower(fontWeight: FontWeight.bold),
+            ),
             onTap: () {
               setState(() {
                 swapWidget = AddTodo(
@@ -102,26 +120,31 @@ class _HomescreenState extends State<Homescreen> {
               setState(() {
                 selectedIndex = index[0];
               });
-              _notesController.clear();
+              _notesContentController.clear();
               _todoContentController.clear();
               _todotitleController.clear();
             },
             enableFeedback: true,
           ),
-          IconButton(
-            icon: icons[1],
-            color: selectedIndex == index[1]
-                ? Colors.deepPurple[100]
-                : Colors.grey,
-            onPressed: () {
-              setState(() {
-                selectedIndex = index[1];
-              });
-              _notesController.clear();
-              _todoContentController.clear();
-              _todotitleController.clear();
+          GestureDetector(
+            onLongPress: () {
+              _authController.signOut();
             },
-            enableFeedback: true,
+            child: IconButton(
+              icon: icons[1],
+              color: selectedIndex == index[1]
+                  ? Colors.deepPurple[100]
+                  : Colors.grey,
+              onPressed: () {
+                setState(() {
+                  selectedIndex = index[1];
+                });
+                _notesContentController.clear();
+                _todoContentController.clear();
+                _todotitleController.clear();
+              },
+              enableFeedback: true,
+            ),
           ),
         ],
       ),
@@ -133,10 +156,12 @@ class _HomescreenState extends State<Homescreen> {
       onPressed: () {
         if (MediaQuery.of(context).viewInsets.bottom == 0) {
           Get.bottomSheet(mybottomSheet(context));
-        } else if (_notesController.text != '' &&
+        } else if (_notesTitleController.text != '' &&
+            _notesContentController.text != '' &&
             MediaQuery.of(context).viewInsets.bottom != 0) {
-          Database().addNotes(_notesController.text, _authController.user.uid);
-          _notesController.clear();
+          Database().addNotes(_notesTitleController.text,
+              _notesContentController.text, _authController.user.uid);
+          _notesContentController.clear();
           FocusScope.of(context).unfocus(); // helps to dipose keyboard
           setState(() {
             selectedIndex = index[0];
@@ -180,8 +205,8 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bottomAppBar(context),
-      floatingActionButton: flotingButton(context),
+      bottomNavigationBar: FadeAnimation(0.2, bottomAppBar(context)),
+      floatingActionButton: FadeAnimation(0.4, flotingButton(context)),
       floatingActionButtonLocation:
           (MediaQuery.of(context).viewInsets.bottom == 0)
               ? FloatingActionButtonLocation.centerDocked
