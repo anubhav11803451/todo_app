@@ -61,7 +61,7 @@ class _SignupbodyState extends State<Signupbody> {
                   ),
                 ),
               ),
-
+              // ),
               SizedBox(height: 40),
               //email inputbox
               FadeAnimation(
