@@ -140,10 +140,12 @@ class _HomescreenState extends State<Homescreen> {
                   ? Colors.deepPurple[100]
                   : Colors.grey[600],
               onPressed: () {
-                setState(() {
-                  selectedIndex = index[1];
-                  selectedIndex = 1;
-                });
+                if (selectedIndex == index[0]) {
+                  setState(() {
+                    selectedIndex = index[1];
+                    selectedIndex = 1;
+                  });
+                }
                 _notesTitleController.clear();
                 _notesContentController.clear();
                 _todoContentController.clear();

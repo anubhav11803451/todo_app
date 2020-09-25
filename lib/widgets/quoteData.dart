@@ -59,17 +59,18 @@ class _QuoteDataState extends State<QuoteData>
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
-            decoration: BoxDecoration(
-                // color: Colors.white,
-                // image: DecorationImage(
-                //     image: AssetImage('assets/images/qu.png'), fit: BoxFit.fill),
-                // borderRadius: BorderRadius.circular(20),
-                ),
-            padding: EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 20),
+            // decoration: BoxDecoration(
+            //   // color: Colors.white,
+            //   image: DecorationImage(
+            //       image: AssetImage('assets/images/quo.png'), fit: BoxFit.fill),
+            //   borderRadius: BorderRadius.circular(20),
+            // ),
+            padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
             child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SelectableText(
-                  '" ' + snapshot.data.quoteText + ' "',
+                  snapshot.data.quoteText,
                   showCursor: true,
                   cursorColor: Colors.deepPurple[100],
                   cursorWidth: 2,
@@ -90,12 +91,18 @@ class _QuoteDataState extends State<QuoteData>
                       // decoration: TextDecoration.underline,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           );
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+          return Text(
+            '${snapshot.error}',
+            style: GoogleFonts.indieFlower(
+                color: Colors.redAccent,
+                fontSize: 18,
+                fontWeight: FontWeight.bold),
+          );
         } else {
           return Center(
             // child: CircularProgressIndicator(
