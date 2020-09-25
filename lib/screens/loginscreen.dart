@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,6 +33,34 @@ class _LoginbodyState extends State<Loginbody> {
 
   final AuthController _authController = Get.put(AuthController());
   bool value = true;
+
+  showdialog() {
+    return Get.defaultDialog(
+      title: 'Forgot Password',
+      middleText: "Enter your Email to reset password",
+      actions: [
+        Inputbox(
+          controller: _emailController,
+          hintText: 'Email',
+          hintStyle: GoogleFonts.indieFlower(),
+          icon: Icon(
+            Icons.alternate_email,
+            color: Colors.black26,
+          ),
+          cursorColor: Colors.deepPurple[100],
+          boxColor: Colors.grey[200],
+        )
+      ],
+      textConfirm: 'Send',
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.deepPurple[100],
+      onConfirm: () {
+        Get.focusScope.unfocus();
+        _authController.forgotPassword(_emailController.text);
+        Get.back();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +98,9 @@ class _LoginbodyState extends State<Loginbody> {
                     color: Colors.black26,
                   ),
                   boxColor: Colors.white24,
+                  validator: (value) {
+                    EmailValidator.validate(value);
+                  },
                 ),
               ),
               //password inputbox
@@ -105,7 +137,9 @@ class _LoginbodyState extends State<Loginbody> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showdialog();
+                    },
                     child: Text('Forgot Password',
                         style: GoogleFonts.indieFlower(
                             fontWeight: FontWeight.bold)),
@@ -128,6 +162,10 @@ class _LoginbodyState extends State<Loginbody> {
                         _emailController.text,
                         _passwordController.text,
                       );
+                      // Get.snackbar('Signing In', 'Loading...',
+                      //     icon: Icon(FontAwesomeIcons.pen),
+                      //     snackPosition: SnackPosition.BOTTOM,
+                      //     overlayBlur: 0.5);
                     },
                   ),
                 ),
@@ -137,9 +175,16 @@ class _LoginbodyState extends State<Loginbody> {
               FadeAnimation(
                 1.4,
                 GestureDetector(
-                  child: Text('Signup',
-                      style: GoogleFonts.indieFlower(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: Hero(
+                    tag: 'signup',
+                    transitionOnUserGestures: true,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text('Signup',
+                          style: GoogleFonts.indieFlower(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
                   onTap: () {
                     Get.to(Signupscreen());
                   },

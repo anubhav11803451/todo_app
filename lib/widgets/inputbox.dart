@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class Inputbox extends StatelessWidget {
   final double height, width;
   final String hintText;
-  final Color boxColor;
+  final Color boxColor, cursorColor;
   final TextStyle hintStyle;
   final Icon icon;
   final Widget suffixIcon;
   final bool obscure;
   final TextEditingController controller;
+  final void Function(String value) validator;
   const Inputbox({
     Key key,
     this.height,
@@ -20,6 +21,8 @@ class Inputbox extends StatelessWidget {
     this.obscure = false,
     this.suffixIcon,
     this.controller,
+    this.cursorColor = Colors.white38,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -37,7 +40,7 @@ class Inputbox extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: obscure,
-        cursorColor: Colors.white38,
+        cursorColor: cursorColor,
         decoration: InputDecoration(
           icon: icon,
           suffixIcon: suffixIcon,
@@ -46,6 +49,7 @@ class Inputbox extends StatelessWidget {
           hintStyle: hintStyle,
           border: InputBorder.none,
         ),
+        validator: validator,
       ),
     );
   }

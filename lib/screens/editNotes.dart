@@ -47,6 +47,7 @@ class _EditNotesState extends State<EditNotes> {
             Get.snackbar('Notes Updated', 'Your notes are modified.',
                 icon: Icon(FontAwesomeIcons.pen),
                 snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.white38,
                 overlayBlur: 0.5,
                 duration: Duration(milliseconds: 800));
           } else {
@@ -56,6 +57,7 @@ class _EditNotesState extends State<EditNotes> {
             Get.snackbar('Note Deleted', 'Your notes are important.',
                 icon: Icon(FontAwesomeIcons.pen),
                 snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.white38,
                 overlayBlur: 0.5,
                 duration: Duration(milliseconds: 800));
           }

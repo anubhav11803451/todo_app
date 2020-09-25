@@ -45,16 +45,23 @@ class _SignupbodyState extends State<Signupbody> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //Login text
-              FadeAnimation(
-                0.2,
-                Text(
-                  'SignUp',
-                  style: GoogleFonts.indieFlower(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
+              // FadeAnimation(
+              //   0.2,
+              Hero(
+                tag: 'signup',
+                transitionOnUserGestures: true,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    'SignUp',
+                    style: GoogleFonts.indieFlower(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
+
               SizedBox(height: 40),
               //email inputbox
               FadeAnimation(
@@ -142,11 +149,8 @@ class _SignupbodyState extends State<Signupbody> {
                       FocusScope.of(context).unfocus();
                       if (_passwordController.text ==
                           _confirmpasswordController.text) {
-                        _authController.createUser(
-                          _emailController.text,
-                          _passwordController.text,
-                          _name.text,
-                        );
+                        _authController.createUser(_emailController.text,
+                            _passwordController.text, _name.text);
                       } else {
                         Get.snackbar(
                           "Password doesn't match",

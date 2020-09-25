@@ -138,6 +138,7 @@ class _HomebodyState extends State<Homebody> {
                                   'Your notes are important.',
                                   icon: Icon(FontAwesomeIcons.pen),
                                   snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.white38,
                                   overlayBlur: 0.5,
                                   duration: Duration(milliseconds: 800),
                                 );
@@ -172,6 +173,7 @@ class _HomebodyState extends State<Homebody> {
                                   'Your Todo\'s are important.',
                                   icon: Icon(FontAwesomeIcons.pen),
                                   snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.white38,
                                   overlayBlur: 0.5,
                                   duration: Duration(milliseconds: 800),
                                 );

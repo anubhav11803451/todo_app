@@ -187,6 +187,7 @@ class _HomescreenState extends State<Homescreen> {
             Get.snackbar('Note Created', 'You can modify it later.',
                 icon: Icon(FontAwesomeIcons.pen),
                 snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.white38,
                 overlayBlur: 0.5,
                 duration: Duration(milliseconds: 800));
           } else if (_todotitleController.text != '' &&
@@ -204,6 +205,7 @@ class _HomescreenState extends State<Homescreen> {
             Get.snackbar('Todo added', 'When complete tick the checkbox.',
                 icon: Icon(FontAwesomeIcons.pen),
                 snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.white38,
                 overlayBlur: 0.5,
                 duration: Duration(milliseconds: 800));
           }
