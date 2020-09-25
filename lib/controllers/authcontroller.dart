@@ -24,7 +24,7 @@ class AuthController extends GetxController {
       if (email != '' && password != '') {
         Get.snackbar('Signing Up', 'Please wait...',
             icon: Icon(FontAwesomeIcons.pen),
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.white38,
             duration: Duration(milliseconds: 900),
             overlayBlur: 1);
@@ -61,7 +61,7 @@ class AuthController extends GetxController {
       if (email != '' && password != '') {
         Get.snackbar('Signing In', 'Please wait...',
             icon: Icon(FontAwesomeIcons.pen),
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.white38,
             duration: Duration(milliseconds: 900),
             overlayBlur: 1);
@@ -93,7 +93,7 @@ class AuthController extends GetxController {
       Get.snackbar(
         "Error while Sending reset link",
         e.message,
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.white38,
         overlayBlur: 1,
       );
