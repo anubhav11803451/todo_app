@@ -158,55 +158,63 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   Widget flotingButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        if (MediaQuery.of(context).viewInsets.bottom == 0) {
-          Get.bottomSheet(mybottomSheet(context));
-        } else if (_notesTitleController.text != '' &&
-            _notesContentController.text != '' &&
-            MediaQuery.of(context).viewInsets.bottom != 0) {
-          Database().addNotes(_notesTitleController.text,
-              _notesContentController.text, _authController.user.uid);
-          _notesContentController.clear();
-          _notesTitleController.clear();
-          FocusScope.of(context).unfocus(); // helps to dipose keyboard
-          setState(() {
-            selectedIndex = index[0];
-            selectedIndexH = 0;
-          });
-          Get.snackbar('Note Created', 'You can modify it later.',
-              icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM,
-              overlayBlur: 0.5,
-              duration: Duration(milliseconds: 800));
-        } else if (_todotitleController.text != '' &&
-            _todoContentController.text != '' &&
-            MediaQuery.of(context).viewInsets.bottom != 0) {
-          Database().addTodo(_todotitleController.text,
-              _todoContentController.text, _authController.user.uid);
-          _todoContentController.clear();
-          _todotitleController.clear();
-          FocusScope.of(context).unfocus(); // helps to dipose keyboard
-          setState(() {
-            selectedIndex = index[0];
-            selectedIndexH = 1;
-          });
-          Get.snackbar('Todo added', 'When complete tick the checkbox.',
-              icon: Icon(FontAwesomeIcons.pen),
-              snackPosition: SnackPosition.BOTTOM,
-              overlayBlur: 0.5,
-              duration: Duration(milliseconds: 800));
-        }
-      },
-      backgroundColor: Colors.deepPurple[100],
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      tooltip:
+    return Tooltip(
+      message:
           selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
               ? 'Save'
               : 'Create New',
-      child: selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
-          ? Icon(FontAwesomeIcons.check)
-          : Icon(FontAwesomeIcons.pen),
+      textStyle: GoogleFonts.indieFlower(color: Colors.black),
+      verticalOffset: -70,
+      decoration: BoxDecoration(
+          color: selectedIndex == 2 ? Colors.deepPurple[100] : Colors.white,
+          borderRadius: BorderRadius.circular(15)),
+      child: FloatingActionButton(
+        onPressed: () {
+          if (MediaQuery.of(context).viewInsets.bottom == 0) {
+            Get.bottomSheet(mybottomSheet(context));
+          } else if (_notesTitleController.text != '' &&
+              _notesContentController.text != '' &&
+              MediaQuery.of(context).viewInsets.bottom != 0) {
+            Database().addNotes(_notesTitleController.text,
+                _notesContentController.text, _authController.user.uid);
+            _notesContentController.clear();
+            _notesTitleController.clear();
+            FocusScope.of(context).unfocus(); // helps to dipose keyboard
+            setState(() {
+              selectedIndex = index[0];
+              selectedIndexH = 0;
+            });
+            Get.snackbar('Note Created', 'You can modify it later.',
+                icon: Icon(FontAwesomeIcons.pen),
+                snackPosition: SnackPosition.BOTTOM,
+                overlayBlur: 0.5,
+                duration: Duration(milliseconds: 800));
+          } else if (_todotitleController.text != '' &&
+              _todoContentController.text != '' &&
+              MediaQuery.of(context).viewInsets.bottom != 0) {
+            Database().addTodo(_todotitleController.text,
+                _todoContentController.text, _authController.user.uid);
+            _todoContentController.clear();
+            _todotitleController.clear();
+            FocusScope.of(context).unfocus(); // helps to dipose keyboard
+            setState(() {
+              selectedIndex = index[0];
+              selectedIndexH = 1;
+            });
+            Get.snackbar('Todo added', 'When complete tick the checkbox.',
+                icon: Icon(FontAwesomeIcons.pen),
+                snackPosition: SnackPosition.BOTTOM,
+                overlayBlur: 0.5,
+                duration: Duration(milliseconds: 800));
+          }
+        },
+        backgroundColor: Colors.deepPurple[100],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child:
+            selectedIndex == 2 && MediaQuery.of(context).viewInsets.bottom != 0
+                ? Icon(FontAwesomeIcons.check)
+                : Icon(FontAwesomeIcons.pen),
+      ),
     );
   }
 
@@ -226,13 +234,13 @@ class _HomescreenState extends State<Homescreen> {
         children: [
           FadeAnimation(0.1, VariousDiscs(10, Colors.white30)),
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 800),
+            duration: Duration(milliseconds: 600),
             child: selectedIndex == 0
                 ? Homebody(
                     selectedIndex: selectedIndexH,
                   )
                 : AnimatedSwitcher(
-                    duration: Duration(milliseconds: 800),
+                    duration: Duration(milliseconds: 600),
                     child: selectedIndex == 1 ? Profile() : swapWidget,
                     switchOutCurve: Curves.easeOutSine,
                     switchInCurve: Curves.easeInSine,
@@ -244,7 +252,7 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ),
             switchOutCurve: Curves.easeOutSine,
-            switchInCurve: Curves.easeInOutSine,
+            switchInCurve: Curves.easeInSine,
             transitionBuilder: (Widget child, Animation<double> animation) =>
                 ScaleTransition(
               scale: animation,

@@ -54,53 +54,57 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         },
         builder: (_) {
           if (_.user.name != null) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            return Stack(
               children: [
-                FadeAnimation(
-                  0.6,
-                  RichText(
-                    text: TextSpan(
-                      text: '$text,\n',
-                      style: GoogleFonts.montserratAlternates(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: _.user.name,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeAnimation(
+                      0.6,
+                      RichText(
+                        text: TextSpan(
+                          text: '$text,\n',
                           style: GoogleFonts.montserratAlternates(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black38,
+                            color: Colors.white,
                           ),
-                        )
-                      ],
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: _.user.name,
+                              style: GoogleFonts.montserratAlternates(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black38,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    FadeAnimation(1.0, QuoteData()),
+                    // FadeAnimation(
+                    //   0.8,
+                    //   Align(
+                    //     alignment: Alignment.bottomRight,
+                    //     child: FlatButton(
+                    //       onPressed: () {
+                    //         _authController.signOut();
+                    //       },
+                    //       child: Text(
+                    //         'Sign out',
+                    //         style: GoogleFonts.indieFlower(
+                    //           color: Colors.redAccent,
+                    //           fontSize: 20,
+                    //           fontWeight: FontWeight.bold,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
-                FadeAnimation(1.0, QuoteData()),
-                // FadeAnimation(
-                //   0.8,
-                //   Align(
-                //     alignment: Alignment.bottomRight,
-                //     child: FlatButton(
-                //       onPressed: () {
-                //         _authController.signOut();
-                //       },
-                //       child: Text(
-                //         'Sign out',
-                //         style: GoogleFonts.indieFlower(
-                //           color: Colors.redAccent,
-                //           fontSize: 20,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             );
           } else {

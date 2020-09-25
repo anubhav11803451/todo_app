@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/controllers/authcontroller.dart';
+import 'package:flutter/material.dart';
 import 'package:todo_app/models/todomodel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/services/database.dart';
+import 'package:todo_app/controllers/authcontroller.dart';
 
 class TodoCard extends StatefulWidget {
   final TodoModel todoModel;
@@ -60,16 +59,16 @@ class _TodoCardState extends State<TodoCard> {
                   newValue, _authController.user.uid, widget.todoModel.todoId);
             },
           ),
-          trailing: IconButton(
-            icon: Icon(
-              FontAwesomeIcons.trash,
-              size: 18,
-            ),
-            onPressed: () {
-              Database().deleteTodo(
-                  widget.todoModel.todoId, _authController.user.uid);
-            },
-          ),
+          // trailing: IconButton(
+          //   icon: Icon(
+          //     FontAwesomeIcons.trash,
+          //     size: 18,
+          //   ),
+          //   onPressed: () {
+          //     Database().deleteTodo(
+          //         widget.todoModel.todoId, _authController.user.uid);
+          //   },
+          // ),
           childrenPadding: EdgeInsets.all(5),
           children: [
             Text(
