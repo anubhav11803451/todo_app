@@ -57,6 +57,10 @@ class _LoginbodyState extends State<Loginbody> {
       onConfirm: () {
         Get.focusScope.unfocus();
         _authController.forgotPassword(_emailController.text);
+        Get.snackbar('Email Sent', 'Check you email to reset the password',
+            icon: Icon(FontAwesomeIcons.pen),
+            snackPosition: SnackPosition.TOP,
+            overlayBlur: 0.5);
         Get.back();
       },
     );
@@ -111,7 +115,10 @@ class _LoginbodyState extends State<Loginbody> {
                   hintText: 'Password',
                   hintStyle: GoogleFonts.indieFlower(),
                   obscure: value,
-                  icon: Icon(Icons.lock_outline, color: Colors.black26),
+                  icon: Icon(
+                    Icons.lock_outline,
+                    color: Colors.black26,
+                  ),
                   suffixIcon: GestureDetector(
                     child: value == true
                         ? Icon(FontAwesomeIcons.eyeSlash,
