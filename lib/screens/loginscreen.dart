@@ -57,11 +57,11 @@ class _LoginbodyState extends State<Loginbody> {
       onConfirm: () {
         Get.focusScope.unfocus();
         _authController.forgotPassword(_emailController.text);
+        Get.back();
         Get.snackbar('Email Sent', 'Check you email to reset the password',
             icon: Icon(FontAwesomeIcons.pen),
             snackPosition: SnackPosition.TOP,
             overlayBlur: 0.5);
-        Get.back();
       },
     );
   }
