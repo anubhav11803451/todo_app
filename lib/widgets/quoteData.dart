@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class _QuoteDataState extends State<QuoteData>
               children: [
                 SelectableText(
                   snapshot.data.quoteText,
-                  showCursor: true,
+                  // showCursor: true,
                   cursorColor: Colors.deepPurple[100],
                   cursorWidth: 2,
                   style: GoogleFonts.indieFlower(
@@ -79,6 +80,8 @@ class _QuoteDataState extends State<QuoteData>
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
+                  enableInteractiveSelection: true,
+                  dragStartBehavior: DragStartBehavior.start,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -112,9 +115,10 @@ class _QuoteDataState extends State<QuoteData>
             child: Text(
               'Quotes of the day...',
               style: GoogleFonts.indieFlower(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           );
         }

@@ -119,12 +119,20 @@ class _HomebodyState extends State<Homebody> {
                                 },
                               ),
                               background: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  margin: EdgeInsets.only(
-                                      left: 10, right: 10, bottom: 20)),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                margin: EdgeInsets.only(
+                                    left: 10, right: 10, bottom: 20),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Icon(
+                                  Icons.delete_sweep,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                              ),
                               onDismissed: (direction) {
                                 Database().deleteNotes(
                                     notesController.notes[index].notesId,
@@ -159,15 +167,25 @@ class _HomebodyState extends State<Homebody> {
                               background: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Colors.redAccent,
+                                  color: Colors.red,
                                 ),
                                 margin: EdgeInsets.only(
                                     left: 10, right: 10, bottom: 20),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Icon(
+                                  Icons.delete_sweep,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                               ),
                               onDismissed: (direction) {
                                 Database().deleteTodo(
                                     todoController.todos[index].todoId,
                                     _authController.user.uid);
+                                setState(() {
+                                  todoController.todos.removeAt(index);
+                                });
                                 Get.snackbar(
                                   'Todo Deleted',
                                   'Your Todo\'s are important.',
