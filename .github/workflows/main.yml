@@ -19,16 +19,16 @@ jobs:
         with:
           flutter-version: '1.12.14'
           channel: 'dev'
-      - run: flutter pub get
+      # - run: flutter pub get
       # run static analys code
-      - run: flutter  analyze
-      # run  flutter widgets tests  and unit tests
-      - run: flutter test --coverage
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage/lcov.info
+      # - run: flutter  analyze
+      # # run  flutter widgets tests  and unit tests
+      # - run: flutter test --coverage
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: coverage/lcov.info
 
   drive_ios:
     #creates a build matrix for your jobs
