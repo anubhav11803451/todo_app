@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/animation/fadeanimation.dart';
+import 'package:todo_app/controllers/quotescontroller.dart';
 import 'package:todo_app/services/database.dart';
 import 'package:todo_app/controllers/authcontroller.dart';
 import 'package:todo_app/controllers/usercontroller.dart';
@@ -15,13 +16,14 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
-  // final AuthController _authController = Get.put(AuthController());
+  final QuotesController _quotesController = Get.put(QuotesController());
   AnimationController _animationController;
   Animation<Color> _colorTween;
   String text;
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       duration: Duration(milliseconds: 500),
       vsync: this,
@@ -47,13 +49,13 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       height: size.height,
       width: size.width,
       padding: EdgeInsets.fromLTRB(10, 15, 10, 60),
-      child: GetX<UserController>(
+      child: GetX(
         initState: (_) async {
           Get.find<UserController>().user =
               await Database().getUser(Get.find<AuthController>().user.uid);
         },
-        builder: (_) {
-          if (_.user.name != null) {
+        builder: (UserController userController) {
+          if (userController.user.name != null) {
             return Stack(
               children: [
                 Align(
@@ -81,7 +83,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: _.user.name,
+                              text: userController.user.name,
                               style: GoogleFonts.montserratAlternates(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -94,7 +96,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     ),
                     FadeAnimation(
                       1.0,
-                      Center(child: QuoteData()),
+                      Center(
+                        child: QuoteData(
+                          qoutemodel: _quotesController.quotemodel,
+                        ),
+                      ),
                     ),
                     // FadeAnimation(
                     //   0.8,
