@@ -10,6 +10,7 @@ class TodoController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     String uid = Get.find<AuthController>().user.uid;
     todoList
         .bindStream(Database().todoStream(uid)); //stream coming from firebase

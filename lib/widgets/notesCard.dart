@@ -38,17 +38,15 @@ class NotesCard extends StatelessWidget {
         child: GridTile(
           child: Text(
             notesModel.title.length >= 50
-                ? notesModel.title
-                    .substring(0, 40)
-                    .capitalizeFirst(notesModel.title)
-                : notesModel.title.capitalizeFirst(notesModel.title),
+                ? notesModel.title.substring(0, 40).capitalizeFirst
+                : notesModel.title.capitalizeFirst,
             style: GoogleFonts.montserratAlternates(
               // color: Colors.deepPurple[400].withOpacity(0.7),
               fontSize: 15,
             ),
           ),
           footer: Text(
-            notesModel.modifiedDate.isNull
+            notesModel.modifiedDate == null
                 ? 'Created at: ' +
                     DateFormat('hh:mm a\nd MMM')
                         .format(notesModel.dateCreated.toDate())

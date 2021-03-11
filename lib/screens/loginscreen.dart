@@ -143,14 +143,17 @@ class _LoginbodyState extends State<Loginbody> {
                 0.8,
                 Align(
                   alignment: Alignment.centerRight,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       showdialog();
                     },
-                    child: Text('Forgot Password',
-                        style: GoogleFonts.indieFlower(
-                            fontWeight: FontWeight.bold)),
-                    textColor: Colors.black54,
+                    child: Text(
+                      'Forgot Password',
+                      style: GoogleFonts.indieFlower(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                      ),
+                    ),
                   ),
                 ),
               ),

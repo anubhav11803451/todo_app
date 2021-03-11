@@ -9,6 +9,7 @@ class NotesController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     String uid = Get.find<AuthController>().user.uid;
     notesList.bindStream(Database().notesStream(uid));
   }

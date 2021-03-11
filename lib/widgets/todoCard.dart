@@ -40,7 +40,7 @@ class _TodoCardState extends State<TodoCard> {
           // backgroundColor: Colors.deepPurple[100],
           tilePadding: EdgeInsets.all(0),
           title: Text(
-            widget.todoModel.title.capitalizeFirst(widget.todoModel.title),
+            widget.todoModel.title.capitalizeFirst,
             style: GoogleFonts.montserrat(),
           ),
           subtitle: Text(

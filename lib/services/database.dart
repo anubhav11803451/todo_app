@@ -58,7 +58,7 @@ class Database {
         .orderBy('dateCreated', descending: true)
         .snapshots()
         .map((QuerySnapshot querySnapshot) {
-      List<NotesModel> retVal = List();
+      List<NotesModel> retVal = [];
       querySnapshot.documents.forEach((docSnapshot) {
         retVal.add(NotesModel.fromDocumentSnapshot(docSnapshot));
       });
@@ -126,7 +126,7 @@ class Database {
         .orderBy("dateCreated", descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
-      List<TodoModel> retVal = List();
+      List<TodoModel> retVal = [];
       query.documents.forEach((element) {
         retVal.add(TodoModel.fromDocumentSnapshot(element));
       });
